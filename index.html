@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 6: Where It Starts – Photosynthesis Interactive Explorer</title>
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --bg-card: #1e293b;
+      --bg-panel: #334155;
+      --accent-green: #22c55e;
+      --accent-light-green: #4ade80;
+      --accent-yellow: #eab308;
+      --accent-blue: #38bdf8;
+      --accent-purple: #a855f7;
+      --accent-red: #ef4444;
+      --text-main: #f8fafc;
+      --text-muted: #cbd5e1;
+      --border-color: #475569;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding-bottom: 50px;
+    }
+
+    /* Header & Equation Banner */
+    header {
+      background: linear-gradient(135deg, #064e3b 0%, #0f172a 100%);
+      padding: 24px 32px;
+      border-bottom: 2px solid var(--accent-green);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .header-title h1 {
+      font-size: 1.8rem;
+      color: var(--accent-light-green);
+      letter-spacing: 0.5px;
+    }
+
+    .header-title p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .equation-pill {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid var(--accent-green);
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 4px 15px rgba(34, 197, 94, 0.2);
+    }
+
+    .eq-highlight {
+      color: var(--accent-yellow);
+    }
+
+    /* Main Navigation Tabs */
+    .nav-tabs {
+      display: flex;
+      justify-content: center;
+      background: var(--bg-card);
+      padding: 12px 20px 0;
+      gap: 8px;
+      border-bottom: 1px solid var(--border-color);
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      background: var(--bg-panel);
+      color: var(--text-muted);
+      border: 1px solid transparent;
+      border-bottom: none;
+      padding: 12px 24px;
+      border-radius: 10px 10px 0 0;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tab-btn:hover {
+      background: #475569;
+      color: white;
+    }
+
+    .tab-btn.active {
+      background: var(--bg-dark);
+      color: var(--accent-light-green);
+      border-color: var(--border-color);
+      border-top: 3px solid var(--accent-green);
+      transform: translateY(1px);
+    }
+
+    /* Main Content Container */
+    .container {
+      max-width: 1280px;
+      margin: 24px auto;
+      padding: 0 20px;
+    }
+
+    .tab-section {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .tab-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Grid Layouts */
+    .workspace-grid {
+      display: grid;
+      grid-template-columns: 1.55fr 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    @media (max-width: 980px) {
+      .workspace-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Cards & Panels */
+    .visual-card, .info-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 22px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-color);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .card-header h2 {
+      font-size: 1.3rem;
+      color: var(--accent-light-green);
+    }
+
+    /* Interactive Controls */
+    .control-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg-dark);
+      padding: 12px 16px;
+      border-radius: 10px;
+      margin-top: 16px;
+      border: 1px solid var(--border-color);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      background: var(--bg-panel);
+      color: white;
+      border: 1px solid var(--border-color);
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .btn:hover:not(:disabled) {
+      background: var(--accent-green);
+      color: #052e16;
+      border-color: var(--accent-green);
+    }
+
+    .btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      background: var(--accent-green);
+      color: #052e16;
+      border-color: var(--accent-green);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-light-green);
+    }
+
+    .mode-switch {
+      display: inline-flex;
+      background: var(--bg-dark);
+      padding: 4px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+    }
+
+    .mode-btn {
+      background: transparent;
+      color: var(--text-muted);
+      border: none;
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: 0.2s;
+    }
+
+    .mode-btn.active {
+      background: var(--accent-green);
+      color: #052e16;
+    }
+
+    /* Step Indicators */
+    .step-dots {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .step-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--bg-panel);
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: bold;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: 0.2s;
+    }
+
+    .step-dot.active {
+      background: var(--accent-red);
+      color: white;
+      border-color: white;
+      transform: scale(1.1);
+    }
+
+    /* SVG Canvas Styling */
+    .svg-container {
+      width: 100%;
+      background: #0b1120;
+      border-radius: 10px;
+      border: 1px solid #334155;
+      overflow: hidden;
+      position: relative;
+    }
+
+    svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .clickable-hotspot {
+      cursor: pointer;
+      transition: filter 0.2s, opacity 0.2s;
+    }
+
+    .clickable-hotspot:hover {
+      filter: drop-shadow(0 0 8px rgba(74, 222, 128, 0.8));
+    }
+
+    /* Info Box Formatting */
+    .step-badge {
+      display: inline-block;
+      background: var(--accent-red);
+      color: white;
+      padding: 3px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .info-title {
+      font-size: 1.25rem;
+      color: white;
+      margin-bottom: 10px;
+    }
+
+    .info-body {
+      color: var(--text-muted);
+      font-size: 0.96rem;
+      margin-bottom: 16px;
+    }
+
+    .key-box {
+      background: rgba(15, 23, 42, 0.7);
+      border-left: 4px solid var(--accent-green);
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      margin-top: 14px;
+      font-size: 0.9rem;
+    }
+
+    .key-box strong {
+      color: var(--accent-light-green);
+    }
+
+    /* Tally Counters for Reactions */
+    .tally-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .tally-item {
+      background: var(--bg-dark);
+      border: 1px solid var(--border-color);
+      padding: 10px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .tally-val {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--accent-yellow);
+    }
+
+    .tally-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    /* Wavelength Slider Specifics */
+    .spectrum-slider-wrap {
+      margin: 18px 0;
+    }
+
+    .spectrum-bar {
+      height: 22px;
+      border-radius: 10px;
+      background: linear-gradient(to right,
+        #7e22ce 0%,
+        #3b82f6 20%,
+        #06b6d4 35%,
+        #22c55e 50%,
+        #eab308 68%,
+        #f97316 82%,
+        #ef4444 100%
+      );
+      margin-bottom: 8px;
+      border: 1px solid white;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      cursor: pointer;
+      accent-color: var(--accent-light-green);
+    }
+
+    .meter-bar-bg {
+      width: 100%;
+      height: 10px;
+      background: #1e293b;
+      border-radius: 5px;
+      overflow: hidden;
+      margin-top: 4px;
+    }
+
+    .meter-bar-fill {
+      height: 100%;
+      transition: width 0.2s ease;
+    }
+
+    /* Animations inside SVG */
+    @keyframes pulseGlow {
+      0%, 100% { filter: drop-shadow(0 0 4px #eab308); }
+      50% { filter: drop-shadow(0 0 14px #facc15); }
+    }
+
+    @keyframes spinWheel {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .pulse-active {
+      animation: pulseGlow 1.5s infinite;
+    }
+
+    .spin-active {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: spinWheel 3s linear infinite;
+    }
+
+    .vocab-pill {
+      display: inline-block;
+      background: #334155;
+      color: #38bdf8;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      margin: 2px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-title">
+      <h1>Chapter 6: Where It Starts – Photosynthesis</h1>
+      <p>Interactive Visual Guide to Chloroplasts, Pigments, Light-Dependent &amp; Light-Independent Reactions</p>
+    </div>
+    <div class="equation-pill">
+      <span>Overall Pathway:</span>
+      <span class="eq-highlight">Light Energy</span> + 6 CO<sub>2</sub> + 6 H<sub>2</sub>O &rarr; C<sub>6</sub>H<sub>12</sub>O<sub>6</sub> (Sugars) + 6 O<sub>2</sub>
+    </div>
+  </header>
+
+  <!-- NAVIGATION TABS -->
+  <nav class="nav-tabs">
+    <button class="tab-btn active" onclick="switchTab('overview')">
+      <span>1. Overview &amp; Chloroplast (6.2)</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('light')">
+      <span>2. Sunlight &amp; Pigments (6.3)</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('ldr')">
+      <span>3. Light-Dependent Reactions (6.4)</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('lir')">
+      <span>4. Light-Independent Reactions (6.5)</span>
+    </button>
+  </nav>
+
+  <!-- MAIN CONTAINER -->
+  <div class="container">
+
+    <!-- ==========================================
+         TAB 1: OVERVIEW & CHLOROPLAST ANATOMY (6.2)
+         ========================================== -->
+    <section id="tab-overview" class="tab-section active">
+      <div class="workspace-grid">
+        <div class="visual-card">
+          <div class="card-header">
+            <h2>Inside the Chloroplast: Two Stages of Reactions</h2>
+            <span style="font-size: 0.85rem; color: var(--accent-yellow);">Click any labeled part in the diagram to explore!</span>
+          </div>
+
+          <div class="svg-container">
+            <svg viewBox="0 0 750 440" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="chloroOuter" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#166534" />
+                  <stop offset="100%" stop-color="#14532d" />
+                </linearGradient>
+                <linearGradient id="stromaGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#bbf7d0" stop-opacity="0.18" />
+                  <stop offset="100%" stop-color="#4ade80" stop-opacity="0.28" />
+                </linearGradient>
+                <marker id="arrowYellow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#facc15" />
+                </marker>
+                <marker id="arrowBlue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#38bdf8" />
+                </marker>
+              </defs>
+
+              <!-- Outer Membranes -->
+              <g class="clickable-hotspot" onclick="selectOverviewPart('membrane')">
+                <rect x="35" y="45" width="680" height="350" rx="175" fill="url(#chloroOuter)" stroke="#4ade80" stroke-width="5"/>
+                <rect x="50" y="60" width="650" height="320" rx="160" fill="url(#stromaGrad)" stroke="#86efac" stroke-width="2" stroke-dasharray="6,4"/>
+                <text x="375" y="390" fill="#86efac" font-size="13" font-weight="bold" text-anchor="middle">CHLOROPLAST (Two Outer Membranes)</text>
+              </g>
+
+              <!-- Stroma Background Click Area -->
+              <g class="clickable-hotspot" onclick="selectOverviewPart('stroma')">
+                <rect x="75" y="80" width="600" height="280" rx="130" fill="transparent"/>
+                <text x="375" y="95" fill="#bbf7d0" font-size="15" font-weight="bold" text-anchor="middle">STROMA (Cytosol-like fluid surrounding thylakoids)</text>
+              </g>
+
+              <!-- Inputs from outside: Sunlight & Water -->
+              <g class="clickable-hotspot" onclick="selectOverviewPart('thylakoid')">
+                <!-- Sunbeams -->
+                <path d="M 140 5 L 185 115" stroke="#fde047" stroke-width="4" stroke-dasharray="6,3" marker-end="url(#arrowYellow)"/>
+                <path d="M 165 5 L 210 115" stroke="#fde047" stroke-width="4" stroke-dasharray="6,3" marker-end="url(#arrowYellow)"/>
+                <text x="130" y="25" fill="#fde047" font-size="14" font-weight="bold">Sunlight Energy</text>
+
+                <!-- Water input -->
+                <path d="M 250 15 L 250 115" stroke="#38bdf8" stroke-width="4" marker-end="url(#arrowBlue)"/>
+                <text x="250" y="15" fill="#38bdf8" font-size="14" font-weight="bold" text-anchor="middle">H₂O (Water)</text>
+
+                <!-- Thylakoid Stack (Granum) -->
+                <rect x="145" y="125" width="160" height="30" rx="15" fill="#15803d" stroke="#4ade80" stroke-width="3"/>
+                <rect x="145" y="160" width="160" height="30" rx="15" fill="#15803d" stroke="#4ade80" stroke-width="3"/>
+                <rect x="145" y="195" width="160" height="30" rx="15" fill="#15803d" stroke="#4ade80" stroke-width="3"/>
+                <rect x="145" y="230" width="160" height="30" rx="15" fill="#15803d" stroke="#4ade80" stroke-width="3"/>
+                <rect x="145" y="265" width="160" height="30" rx="15" fill="#15803d" stroke="#4ade80" stroke-width="3"/>
+                <rect x="160" y="140" width="130" height="145" rx="10" fill="#166534" opacity="0.9"/>
+
+                <text x="225" y="195" fill="#ffffff" font-size="16" font-weight="bold" text-anchor="middle">STAGE 1:</text>
+                <text x="225" y="215" fill="#4ade80" font-size="15" font-weight="bold" text-anchor="middle">Light-Dependent</text>
+                <text x="225" y="235" fill="#4ade80" font-size="15" font-weight="bold" text-anchor="middle">Reactions</text>
+                <text x="225" y="255" fill="#bbf7d0" font-size="11" text-anchor="middle">(Thylakoid Membrane)</text>
+
+                <!-- Oxygen Output -->
+                <path d="M 225 298 L 225 415" stroke="#38bdf8" stroke-width="4" marker-end="url(#arrowBlue)"/>
+                <text x="225" y="432" fill="#38bdf8" font-size="14" font-weight="bold" text-anchor="middle">O₂ Gas Released</text>
+              </g>
+
+              <!-- Coenzyme Bridge (ATP / NADPH) -->
+              <g class="clickable-hotspot" onclick="selectOverviewPart('coenzymes')">
+                <!-- Top Arrow: ATP & NADPH -->
+                <path d="M 315 175 C 365 145, 405 145, 450 175" fill="none" stroke="#facc15" stroke-width="5" marker-end="url(#arrowYellow)"/>
+                <rect x="335" y="122" width="105" height="32" rx="8" fill="#ca8a04" stroke="#fef08a" stroke-width="2"/>
+                <text x="387" y="143" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">ATP &amp; NADPH</text>
+
+                <!-- Bottom Arrow: ADP & NADP+ -->
+                <path d="M 450 250 C 405 280, 365 280, 315 250" fill="none" stroke="#94a3b8" stroke-width="4" stroke-dasharray="6,4" marker-end="url(#arrowBlue)"/>
+                <rect x="335" y="275" width="105" height="30" rx="8" fill="#334155" stroke="#94a3b8" stroke-width="2"/>
+                <text x="387" y="295" fill="#e2e8f0" font-size="12" font-weight="bold" text-anchor="middle">ADP + Pᵢ, NADP⁺</text>
+              </g>
+
+              <!-- Stage 2: Calvin-Benson Cycle -->
+              <g class="clickable-hotspot" onclick="selectOverviewPart('calvin')">
+                <!-- CO2 Input -->
+                <path d="M 540 15 L 540 120" stroke="#f87171" stroke-width="4" marker-end="url(#arrowYellow)"/>
+                <text x="540" y="15" fill="#f87171" font-size="14" font-weight="bold" text-anchor="middle">CO₂ (Carbon Dioxide)</text>
+
+                <!-- Cycle Circle -->
+                <circle cx="540" cy="210" r="82" fill="#1e3a8a" fill-opacity="0.7" stroke="#38bdf8" stroke-width="6"/>
+                <path d="M 540 128 A 82 82 0 1 1 465 245" fill="none" stroke="#60a5fa" stroke-width="6" marker-end="url(#arrowBlue)"/>
+
+                <text x="540" y="190" fill="#ffffff" font-size="16" font-weight="bold" text-anchor="middle">STAGE 2:</text>
+                <text x="540" y="210" fill="#38bdf8" font-size="15" font-weight="bold" text-anchor="middle">Light-Independent</text>
+                <text x="540" y="230" fill="#38bdf8" font-size="15" font-weight="bold" text-anchor="middle">Reactions</text>
+                <text x="540" y="250" fill="#bae6fd" font-size="11" text-anchor="middle">(Calvin–Benson Cycle)</text>
+
+                <!-- Sugar Output -->
+                <path d="M 540 295 L 540 415" stroke="#4ade80" stroke-width="5" marker-end="url(#arrowYellow)"/>
+                <text x="540" y="432" fill="#4ade80" font-size="14" font-weight="bold" text-anchor="middle">Sugars (PGAL / Sucrose)</text>
+              </g>
+            </svg>
+          </div>
+
+          <div class="control-bar">
+            <span style="font-size: 0.9rem; color: var(--text-muted);">Select a component to inspect:</span>
+            <div class="btn-group">
+              <button class="btn" onclick="selectOverviewPart('autotrophs')">Autotrophs vs. Heterotrophs</button>
+              <button class="btn" onclick="selectOverviewPart('thylakoid')">Stage 1: Thylakoids</button>
+              <button class="btn" onclick="selectOverviewPart('coenzymes')">Coenzyme Bridge</button>
+              <button class="btn" onclick="selectOverviewPart('calvin')">Stage 2: Stroma</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Info Panel for Tab 1 -->
+        <div class="info-card">
+          <div class="card-header">
+            <h2 id="ov-title">6.2 Overview of Photosynthesis</h2>
+          </div>
+          <span class="step-badge" id="ov-badge">Interactive Guide</span>
+          <div class="info-body" id="ov-desc">
+            <p><strong>Photosynthesis</strong> feeds most life on Earth. Sunlight is abundant, but it cannot directly power metabolic reactions. First, it must be converted into the chemical bond energy of organic molecules.</p>
+            <br>
+            <p>Click on any structure inside the <strong>Chloroplast diagram</strong> on the left to see how the two stages of photosynthesis work together!</p>
+          </div>
+
+          <div class="key-box" id="ov-keybox">
+            <strong>Take-Home Message 6.2:</strong><br>
+            &bull; <strong>Stage 1 (Light-Dependent):</strong> Occurs at the <em>thylakoid membrane</em>. Converts light energy to chemical energy (ATP &amp; NADPH) and splits water to release O<sub>2</sub>.<br>
+            &bull; <strong>Stage 2 (Light-Independent):</strong> Occurs in the <em>stroma</em>. Uses ATP and NADPH to assemble sugars from CO<sub>2</sub> and water.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         TAB 2: SUNLIGHT & PIGMENTS (6.3)
+         ========================================== -->
+    <section id="tab-light" class="tab-section">
+      <div class="workspace-grid">
+        <div class="visual-card">
+          <div class="card-header">
+            <h2>Engelmann's Experiment &amp; Pigment Absorption (6.3)</h2>
+            <span style="font-size: 0.85rem; color: var(--accent-yellow);">Drag the wavelength slider below!</span>
+          </div>
+
+          <!-- SVG of Absorption Graph + Engelmann's Algae/Bacteria -->
+          <div class="svg-container">
+            <svg viewBox="0 0 750 410" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="rainbowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#6b21a8"/>
+                  <stop offset="18%" stop-color="#2563eb"/>
+                  <stop offset="35%" stop-color="#0891b2"/>
+                  <stop offset="50%" stop-color="#16a34a"/>
+                  <stop offset="68%" stop-color="#ca8a04"/>
+                  <stop offset="84%" stop-color="#ea580c"/>
+                  <stop offset="100%" stop-color="#dc2626"/>
+                </linearGradient>
+              </defs>
+
+              <!-- Graph Section (Top) -->
+              <text x="65" y="25" fill="#cbd5e1" font-size="13" font-weight="bold">Absorption Spectrum of Photosynthetic Pigments (Fig. 6.8)</text>
+              <line x1="60" y1="35" x2="60" y2="210" stroke="#64748b" stroke-width="2"/>
+              <line x1="60" y1="210" x2="710" y2="210" stroke="#64748b" stroke-width="2"/>
+              <text x="20" y="125" fill="#94a3b8" font-size="12" transform="rotate(-90 20,125)" text-anchor="middle">Light Absorbed</text>
+
+              <!-- Chlorophyll a curve (Teal/Green) -->
+              <path d="M 60 150 Q 110 40, 150 65 T 230 205 L 490 205 Q 540 190, 575 195 Q 615 55, 645 100 T 700 208" fill="none" stroke="#14b8a6" stroke-width="4"/>
+              <!-- Chlorophyll b curve (Light Green) -->
+              <path d="M 80 185 Q 160 140, 185 45 T 275 205 L 510 205 Q 565 135, 595 160 T 665 208" fill="none" stroke="#84cc16" stroke-width="4"/>
+              <!-- Beta-carotene curve (Orange) -->
+              <path d="M 70 155 Q 140 60, 180 85 Q 225 55, 255 95 T 335 206 L 700 208" fill="none" stroke="#f97316" stroke-width="4"/>
+
+              <!-- Legend -->
+              <rect x="470" y="12" width="12" height="12" fill="#14b8a6"/>
+              <text x="488" y="23" fill="#14b8a6" font-size="12" font-weight="bold">Chlorophyll a</text>
+              <rect x="575" y="12" width="12" height="12" fill="#84cc16"/>
+              <text x="593" y="23" fill="#84cc16" font-size="12" font-weight="bold">Chlorophyll b</text>
+              <rect x="675" y="12" width="12" height="12" fill="#f97316"/>
+              <text x="692" y="23" fill="#f97316" font-size="12" font-weight="bold">&beta;-carotene</text>
+
+              <!-- Engelmann Experiment Section (Bottom) -->
+              <text x="65" y="240" fill="#cbd5e1" font-size="13" font-weight="bold">Theodor Engelmann's 1882 Experiment (Fig. 6.5): Oxygen-Seeking Bacteria</text>
+
+              <!-- Spectrum Background for Algae -->
+              <rect x="60" y="250" width="650" height="125" fill="url(#rainbowGrad)" opacity="0.35" rx="6"/>
+
+              <!-- Cladophora Algal Strand -->
+              <g>
+                <rect x="60" y="298" width="650" height="28" fill="#14532d" stroke="#86efac" stroke-width="2"/>
+                <rect x="65" y="302" width="100" height="20" rx="4" fill="#22c55e"/>
+                <rect x="172" y="302" width="100" height="20" rx="4" fill="#22c55e"/>
+                <rect x="279" y="302" width="100" height="20" rx="4" fill="#22c55e"/>
+                <rect x="386" y="302" width="100" height="20" rx="4" fill="#22c55e"/>
+                <rect x="493" y="302" width="100" height="20" rx="4" fill="#22c55e"/>
+                <rect x="600" y="302" width="105" height="20" rx="4" fill="#22c55e"/>
+                <text x="385" y="316" fill="#052e16" font-size="12" font-weight="bold" text-anchor="middle">Cladophora Green Alga Strand</text>
+              </g>
+
+              <!-- Bacteria Swarm around Blue/Violet (420-480nm) and Red (630-680nm) -->
+              <g fill="#f8fafc" opacity="0.85">
+                <!-- Blue/Violet Cluster -->
+                <ellipse cx="130" cy="280" rx="6" ry="2.5" transform="rotate(20 130 280)"/>
+                <ellipse cx="145" cy="270" rx="6" ry="2.5" transform="rotate(-15 145 270)"/>
+                <ellipse cx="160" cy="285" rx="6" ry="2.5" transform="rotate(40 160 285)"/>
+                <ellipse cx="175" cy="268" rx="6" ry="2.5" transform="rotate(10 175 268)"/>
+                <ellipse cx="190" cy="282" rx="6" ry="2.5" transform="rotate(-30 190 282)"/>
+                <ellipse cx="155" cy="260" rx="6" ry="2.5"/>
+                <ellipse cx="120" cy="290" rx="6" ry="2.5"/>
+                <ellipse cx="205" cy="275" rx="6" ry="2.5"/>
+                <ellipse cx="135" cy="340" rx="6" ry="2.5" transform="rotate(-20 135 340)"/>
+                <ellipse cx="155" cy="350" rx="6" ry="2.5" transform="rotate(15 155 350)"/>
+                <ellipse cx="170" cy="338" rx="6" ry="2.5" transform="rotate(-35 170 338)"/>
+                <ellipse cx="188" cy="348" rx="6" ry="2.5"/>
+                <ellipse cx="145" cy="362" rx="6" ry="2.5"/>
+                <ellipse cx="200" cy="336" rx="6" ry="2.5"/>
+
+                <!-- Sparse middle (Green/Yellow) -->
+                <ellipse cx="350" cy="290" rx="6" ry="2.5"/>
+                <ellipse cx="420" cy="338" rx="6" ry="2.5"/>
+
+                <!-- Red Cluster -->
+                <ellipse cx="585" cy="282" rx="6" ry="2.5" transform="rotate(25 585 282)"/>
+                <ellipse cx="605" cy="272" rx="6" ry="2.5" transform="rotate(-10 605 272)"/>
+                <ellipse cx="620" cy="286" rx="6" ry="2.5"/>
+                <ellipse cx="635" cy="275" rx="6" ry="2.5" transform="rotate(30 635 275)"/>
+                <ellipse cx="650" cy="288" rx="6" ry="2.5"/>
+                <ellipse cx="595" cy="340" rx="6" ry="2.5" transform="rotate(-25 595 340)"/>
+                <ellipse cx="615" cy="352" rx="6" ry="2.5"/>
+                <ellipse cx="630" cy="338" rx="6" ry="2.5" transform="rotate(15 630 338)"/>
+                <ellipse cx="645" cy="348" rx="6" ry="2.5"/>
+              </g>
+
+              <!-- Wavelength X-Axis Labels -->
+              <text x="60" y="395" fill="#cbd5e1" font-size="12" text-anchor="middle">400 nm (Violet)</text>
+              <text x="276" y="395" fill="#cbd5e1" font-size="12" text-anchor="middle">500 nm (Green)</text>
+              <text x="493" y="395" fill="#cbd5e1" font-size="12" text-anchor="middle">600 nm (Orange)</text>
+              <text x="710" y="395" fill="#cbd5e1" font-size="12" text-anchor="middle">700 nm (Red)</text>
+
+              <!-- Interactive Wavelength Indicator Line -->
+              <g id="wavelength-cursor" transform="translate(168, 0)">
+                <line x1="0" y1="35" x2="0" y2="375" stroke="#ffffff" stroke-width="3" stroke-dasharray="5,3"/>
+                <circle cx="0" cy="35" r="7" fill="#ffffff"/>
+              </g>
+            </svg>
+          </div>
+
+          <!-- Wavelength Slider Controls -->
+          <div class="spectrum-slider-wrap">
+            <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+              <strong>Test Wavelength of Light: <span id="wl-readout" style="color:var(--accent-light-green);">450 nm (Blue Light)</span></strong>
+              <span>Photon Energy: <strong id="wl-energy" style="color:var(--accent-yellow);">High Energy (Short Wavelength)</strong></span>
+            </div>
+            <div class="spectrum-bar"></div>
+            <input type="range" id="wl-slider" min="400" max="700" value="450" oninput="updateWavelength(this.value)">
+          </div>
+        </div>
+
+        <!-- Info Panel for Tab 2 -->
+        <div class="info-card">
+          <div class="card-header">
+            <h2>Live Pigment &amp; O₂ Meter</h2>
+          </div>
+
+          <!-- Live Meters -->
+          <div style="margin-bottom: 18px;">
+            <div style="display:flex; justify-content:space-between; font-size:0.9rem;">
+              <span><strong>Chlorophyll <em>a</em></strong> (Main Pigment)</span>
+              <span id="abs-chla-txt">85%</span>
+            </div>
+            <div class="meter-bar-bg"><div id="abs-chla-bar" class="meter-bar-fill" style="width:85%; background:#14b8a6;"></div></div>
+
+            <div style="display:flex; justify-content:space-between; font-size:0.9rem; margin-top:10px;">
+              <span><strong>Chlorophyll <em>b</em></strong> (Accessory)</span>
+              <span id="abs-chlb-txt">92%</span>
+            </div>
+            <div class="meter-bar-bg"><div id="abs-chlb-bar" class="meter-bar-fill" style="width:92%; background:#84cc16;"></div></div>
+
+            <div style="display:flex; justify-content:space-between; font-size:0.9rem; margin-top:10px;">
+              <span><strong>Beta-Carotene</strong> (Accessory)</span>
+              <span id="abs-caro-txt">78%</span>
+            </div>
+            <div class="meter-bar-bg"><div id="abs-caro-bar" class="meter-bar-fill" style="width:78%; background:#f97316;"></div></div>
+
+            <div style="display:flex; justify-content:space-between; font-size:0.95rem; margin-top:14px; padding-top:10px; border-top:1px solid var(--border-color);">
+              <span><strong>O₂ Release &amp; Bacteria Swarm Rate:</strong></span>
+              <strong id="o2-rate-txt" style="color:var(--accent-light-green);">Very High!</strong>
+            </div>
+          </div>
+
+          <div class="info-body" id="wl-explanation">
+            <strong>Why Blue &amp; Red Work Best:</strong> Chlorophyll <em>a</em> absorbs violet, blue, orange, and red light strongly, while reflecting green light (500–580 nm). Accessory pigments like chlorophyll <em>b</em> and carotenoids broaden the range of wavelengths that can drive photosynthesis.
+          </div>
+
+          <div class="key-box">
+            <strong>Key Concepts (Section 6.3):</strong><br>
+            &bull; <strong>Photons &amp; Wavelength:</strong> Shorter wavelengths (violet/blue, ~400 nm) carry <em>more energy</em> per photon than longer wavelengths (red, ~700 nm).<br>
+            &bull; <strong>Light-Trapping Region:</strong> Pigments have alternating single and double carbon bonds where electrons absorb photons with the exact energy needed to jump to a higher shell.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         TAB 3: LIGHT-DEPENDENT REACTIONS (6.4)
+         ========================================== -->
+    <section id="tab-ldr" class="tab-section">
+      <div class="workspace-grid">
+        <div class="visual-card">
+          <div class="card-header">
+            <h2>Stage 1: The Thylakoid Membrane (Section 6.4)</h2>
+            <div class="mode-switch">
+              <button class="mode-btn active" id="btn-mode-noncyclic" onclick="setLDRMode('noncyclic')">Noncyclic Pathway (Main)</button>
+              <button class="mode-btn" id="btn-mode-cyclic" onclick="setLDRMode('cyclic')">Cyclic Pathway (PSI Only)</button>
+            </div>
+          </div>
+
+          <!-- Thylakoid Membrane Interactive SVG -->
+          <div class="svg-container">
+            <svg viewBox="0 0 760 430" xmlns="http://www.w3.org/2000/svg">
+              <!-- Stroma (Top) -->
+              <rect x="0" y="0" width="760" height="145" fill="#0f172a"/>
+              <text x="20" y="28" fill="#86efac" font-size="15" font-weight="bold">STROMA (Low H⁺ concentration)</text>
+
+              <!-- Thylakoid Membrane Bilayer (Middle) -->
+              <rect x="0" y="145" width="760" height="110" fill="#78350f" stroke="#f59e0b" stroke-width="3"/>
+              <line x1="0" y1="200" x2="760" y2="200" stroke="#451a03" stroke-width="2" stroke-dasharray="8,6"/>
+              <text x="655" y="165" fill="#fde68a" font-size="11" font-weight="bold">Thylakoid Membrane</text>
+
+              <!-- Thylakoid Compartment / Lumen (Bottom) -->
+              <rect x="0" y="255" width="760" height="175" fill="#064e3b"/>
+              <text x="20" y="412" fill="#6ee7b7" font-size="15" font-weight="bold">THYLAKOID COMPARTMENT (High H⁺ concentration gradient)</text>
+
+              <!-- PHOTOSYSTEM II (p680) -->
+              <g id="svg-ps2" opacity="1">
+                <rect x="75" y="125" width="95" height="145" rx="22" fill="#15803d" stroke="#4ade80" stroke-width="3"/>
+                <circle cx="122" cy="195" r="22" fill="#166534" stroke="#86efac" stroke-width="2"/>
+                <text x="122" y="152" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="middle">Photosystem II</text>
+                <text x="122" y="200" fill="#fef08a" font-size="13" font-weight="bold" text-anchor="middle">p680</text>
+                <!-- Light Bolt PSII -->
+                <g id="ldr-light-ps2" opacity="0.25">
+                  <path d="M 95 30 L 115 80 L 102 80 L 122 122" fill="none" stroke="#fde047" stroke-width="4" marker-end="url(#arrowYellow)"/>
+                  <text x="105" y="24" fill="#fde047" font-size="12" font-weight="bold" text-anchor="middle">1. Light</text>
+                </g>
+              </g>
+
+              <!-- WATER SPLITTING (Photolysis) -->
+              <g id="ldr-photolysis" opacity="0.25">
+                <path d="M 90 340 Q 122 300, 122 270" fill="none" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrowBlue)"/>
+                <path d="M 122 305 Q 145 340, 175 355" fill="none" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrowBlue)"/>
+                <text x="75" y="362" fill="#38bdf8" font-size="14" font-weight="bold">2. H₂O</text>
+                <text x="195" y="368" fill="#7dd3fc" font-size="13" font-weight="bold">½ O₂ + 2 H⁺</text>
+              </g>
+
+              <!-- ETC 1 & H+ Pump -->
+              <g id="ldr-etc1" opacity="0.3">
+                <rect x="200" y="155" width="45" height="85" rx="10" fill="#1d4ed8" stroke="#60a5fa" stroke-width="2"/>
+                <rect x="255" y="155" width="50" height="90" rx="10" fill="#2563eb" stroke="#93c5fd" stroke-width="2"/>
+                <rect x="315" y="155" width="45" height="85" rx="10" fill="#1d4ed8" stroke="#60a5fa" stroke-width="2"/>
+                <text x="280" y="140" fill="#93c5fd" font-size="12" font-weight="bold" text-anchor="middle">3. Electron Transfer Chain</text>
+                <!-- Electron Path PSII to PSI -->
+                <path d="M 145 195 L 222 195 L 280 205 L 338 195 L 395 195" fill="none" stroke="#facc15" stroke-width="4" stroke-dasharray="5,3" marker-end="url(#arrowYellow)"/>
+              </g>
+
+              <!-- H+ Active Transport across ETC 1 -->
+              <g id="ldr-hpump" opacity="0.25">
+                <path d="M 280 95 L 280 300" fill="none" stroke="#38bdf8" stroke-width="5" marker-end="url(#arrowBlue)"/>
+                <circle cx="280" cy="80" r="14" fill="#0284c7"/>
+                <text x="280" y="85" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="middle">H⁺</text>
+                <text x="280" y="55" fill="#38bdf8" font-size="12" font-weight="bold" text-anchor="middle">4. H⁺ Pump</text>
+              </g>
+
+              <!-- PHOTOSYSTEM I (p700) -->
+              <g id="svg-ps1">
+                <rect x="395" y="125" width="95" height="145" rx="22" fill="#15803d" stroke="#4ade80" stroke-width="3"/>
+                <circle cx="442" cy="195" r="22" fill="#166534" stroke="#86efac" stroke-width="2"/>
+                <text x="442" y="152" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="middle">Photosystem I</text>
+                <text x="442" y="200" fill="#fef08a" font-size="13" font-weight="bold" text-anchor="middle">p700</text>
+                <!-- Light Bolt PSI -->
+                <g id="ldr-light-ps1" opacity="0.25">
+                  <path d="M 415 30 L 435 80 L 422 80 L 442 122" fill="none" stroke="#fde047" stroke-width="4" marker-end="url(#arrowYellow)"/>
+                  <text x="425" y="24" fill="#fde047" font-size="12" font-weight="bold" text-anchor="middle">5. Light</text>
+                </g>
+              </g>
+
+              <!-- CYCLIC RETURN LOOP (Hidden in Noncyclic mode) -->
+              <g id="ldr-cyclic-loop" opacity="0">
+                <path d="M 442 170 C 400 105, 310 105, 280 165" fill="none" stroke="#facc15" stroke-width="4" stroke-dasharray="6,3" marker-end="url(#arrowYellow)"/>
+                <rect x="315" y="102" width="105" height="24" rx="6" fill="#ca8a04"/>
+                <text x="367" y="118" fill="#ffffff" font-size="11" font-weight="bold" text-anchor="middle">e⁻ Cycles Back!</text>
+              </g>
+
+              <!-- ETC 2 & NADPH Formation -->
+              <g id="ldr-etc2" opacity="0.25">
+                <rect x="515" y="155" width="65" height="85" rx="12" fill="#7e22ce" stroke="#d8b4fe" stroke-width="2"/>
+                <text x="547" y="200" fill="#ffffff" font-size="11" font-weight="bold" text-anchor="middle">ETC II</text>
+                <path d="M 465 195 L 547 195 L 565 105" fill="none" stroke="#facc15" stroke-width="4" marker-end="url(#arrowYellow)"/>
+                <rect x="515" y="65" width="110" height="34" rx="8" fill="#ca8a04" stroke="#fef08a" stroke-width="2"/>
+                <text x="570" y="87" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">6. NADPH</text>
+                <text x="570" y="55" fill="#fde047" font-size="11" text-anchor="middle">NADP⁺ + H⁺ + 2e⁻</text>
+              </g>
+
+              <!-- H+ Pool in Thylakoid Compartment -->
+              <g id="ldr-hpool" opacity="0.4">
+                <circle cx="240" cy="330" r="12" fill="#0284c7"/><text x="240" y="335" fill="#fff" font-size="11" font-weight="bold" text-anchor="middle">H⁺</text>
+                <circle cx="290" cy="345" r="12" fill="#0284c7"/><text x="290" y="350" fill="#fff" font-size="11" font-weight="bold" text-anchor="middle">H⁺</text>
+                <circle cx="345" cy="330" r="12" fill="#0284c7"/><text x="345" y="335" fill="#fff" font-size="11" font-weight="bold" text-anchor="middle">H⁺</text>
+                <circle cx="410" cy="345" r="12" fill="#0284c7"/><text x="410" y="350" fill="#fff" font-size="11" font-weight="bold" text-anchor="middle">H⁺</text>
+                <circle cx="485" cy="335" r="12" fill="#0284c7"/><text x="485" y="340" fill="#fff" font-size="11" font-weight="bold" text-anchor="middle">H⁺</text>
+                <circle cx="560" cy="345" r="12" fill="#0284c7"/><text x="560" y="350" fill="#fff" font-size="11" font-weight="bold" text-anchor="middle">H⁺</text>
+                <!-- Gradient flow arrow to ATP Synthase -->
+                <path d="M 580 345 Q 665 345, 665 275" fill="none" stroke="#38bdf8" stroke-width="4" stroke-dasharray="5,3" marker-end="url(#arrowBlue)"/>
+              </g>
+
+              <!-- ATP SYNTHASE & Electron Transfer Phosphorylation -->
+              <g id="ldr-atpsynthase" opacity="0.35">
+                <!-- Stalk in membrane -->
+                <rect x="645" y="135" width="40" height="135" rx="8" fill="#cbd5e1" stroke="#64748b" stroke-width="2"/>
+                <!-- Rotor head in stroma -->
+                <ellipse cx="665" cy="115" rx="38" ry="26" fill="#e2e8f0" stroke="#475569" stroke-width="3"/>
+                <text x="665" y="120" fill="#0f172a" font-size="12" font-weight="bold" text-anchor="middle">ATP Synthase</text>
+                <!-- H+ shooting up into stroma -->
+                <path d="M 665 275 L 665 45" fill="none" stroke="#38bdf8" stroke-width="5" marker-end="url(#arrowBlue)"/>
+                <circle cx="665" cy="30" r="13" fill="#0284c7"/><text x="665" y="35" fill="#fff" font-size="11" font-weight="bold" text-anchor="middle">H⁺</text>
+
+                <!-- ATP Output Badge -->
+                <rect x="680" y="55" width="70" height="32" rx="16" fill="#eab308" stroke="#fef08a" stroke-width="2"/>
+                <text x="715" y="76" fill="#0f172a" font-size="14" font-weight="bold" text-anchor="middle">ATP</text>
+              </g>
+            </svg>
+          </div>
+
+          <!-- Step Navigation Bar -->
+          <div class="control-bar">
+            <div class="btn-group">
+              <button class="btn" id="ldr-prev-btn" onclick="changeLDRStep(-1)">&larr; Prev Step</button>
+              <button class="btn btn-primary" id="ldr-next-btn" onclick="changeLDRStep(1)">Next Step &rarr;</button>
+            </div>
+            <div class="step-dots" id="ldr-dots"></div>
+          </div>
+        </div>
+
+        <!-- Info Panel for Tab 3 -->
+        <div class="info-card">
+          <div class="card-header">
+            <h2 id="ldr-mode-heading">Noncyclic Pathway (Figure 6.12)</h2>
+          </div>
+          <span class="step-badge" id="ldr-step-badge">Step 1 of 8</span>
+          <h3 class="info-title" id="ldr-step-title">Photosystem II Absorbs Light Energy</h3>
+          <div class="info-body" id="ldr-step-desc"></div>
+
+          <!-- Output Tally -->
+          <div class="tally-grid">
+            <div class="tally-item">
+              <div class="tally-val" id="ldr-tally-o2">Yes</div>
+              <div class="tally-label">O₂ Gas Released</div>
+            </div>
+            <div class="tally-item">
+              <div class="tally-val" id="ldr-tally-nadph">Yes</div>
+              <div class="tally-label">NADPH Made</div>
+            </div>
+            <div class="tally-item">
+              <div class="tally-val" id="ldr-tally-atp">Yes</div>
+              <div class="tally-label">ATP Made</div>
+            </div>
+          </div>
+
+          <div class="key-box" id="ldr-extra-note">
+            <strong>Why Two Pathways? (Section 6.4):</strong><br>
+            The <em>noncyclic pathway</em> produces both ATP and NADPH using electrons pulled from water. However, it doesn't yield quite enough ATP to balance NADPH use in the Calvin–Benson cycle—so the <em>cyclic pathway</em> runs to supply extra ATP and protect cells under intense light!
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         TAB 4: LIGHT-INDEPENDENT REACTIONS (6.5)
+         ========================================== -->
+    <section id="tab-lir" class="tab-section">
+      <div class="workspace-grid">
+        <div class="visual-card">
+          <div class="card-header">
+            <h2>Stage 2: The Calvin–Benson Cycle (Section 6.5)</h2>
+            <span style="font-size: 0.85rem; color: var(--accent-yellow);">Summary of 3 cycles in the Stroma (Fig. 6.14)</span>
+          </div>
+
+          <!-- Calvin-Benson Cycle Interactive SVG -->
+          <div class="svg-container">
+            <svg viewBox="0 0 750 430" xmlns="http://www.w3.org/2000/svg">
+              <!-- Stroma Background Circle -->
+              <circle cx="375" cy="210" r="135" fill="#1e293b" stroke="#334155" stroke-width="18"/>
+              <text x="375" y="205" fill="#38bdf8" font-size="18" font-weight="bold" text-anchor="middle">Calvin–Benson</text>
+              <text x="375" y="228" fill="#38bdf8" font-size="18" font-weight="bold" text-anchor="middle">Cycle (Stroma)</text>
+
+              <!-- STEP 1: 3 CO2 + 3 RuBP via Rubisco -->
+              <g id="calvin-node-1" opacity="1">
+                <path d="M 375 12 L 375 68" fill="none" stroke="#38bdf8" stroke-width="5" marker-end="url(#arrowBlue)"/>
+                <rect x="315" y="8" width="120" height="28" rx="6" fill="#0284c7"/>
+                <text x="375" y="27" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">1. 3 CO₂ (1C each)</text>
+                <text x="375" y="92" fill="#fef08a" font-size="12" font-weight="bold" text-anchor="middle">Enzyme: Rubisco</text>
+              </g>
+
+              <!-- 3 RuBP Node (Top Right) -->
+              <g id="calvin-node-rubp" opacity="0.5">
+                <rect x="445" y="65" width="155" height="52" rx="10" fill="#0f172a" stroke="#60a5fa" stroke-width="2"/>
+                <text x="522" y="86" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">3 RuBP (5-Carbon)</text>
+                <!-- 5 Carbon black/gray balls -->
+                <g transform="translate(482, 95)" fill="#94a3b8">
+                  <circle cx="0" cy="6" r="6"/><circle cx="16" cy="6" r="6"/><circle cx="32" cy="6" r="6"/><circle cx="48" cy="6" r="6"/><circle cx="64" cy="6" r="6"/>
+                </g>
+              </g>
+
+              <!-- STEP 2: 6 PGA Node (Top Left) -->
+              <g id="calvin-node-2" opacity="0.35">
+                <path d="M 440 82 Q 375 55, 305 82" fill="none" stroke="#38bdf8" stroke-width="5" marker-end="url(#arrowBlue)"/>
+                <rect x="145" y="65" width="155" height="52" rx="10" fill="#0f172a" stroke="#f87171" stroke-width="2"/>
+                <text x="222" y="86" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">2. 6 PGA (3-Carbon)</text>
+                <g transform="translate(198, 95)" fill="#f87171">
+                  <circle cx="0" cy="6" r="6"/><circle cx="18" cy="6" r="6"/><circle cx="36" cy="6" r="6"/>
+                </g>
+              </g>
+
+              <!-- STEP 3: ATP + NADPH Input -> 6 PGAL (Bottom Left) -->
+              <g id="calvin-node-3" opacity="0.35">
+                <path d="M 225 122 C 205 185, 205 235, 245 290" fill="none" stroke="#facc15" stroke-width="5" marker-end="url(#arrowYellow)"/>
+                <!-- 6 ATP Box -->
+                <rect x="55" y="140" width="130" height="32" rx="8" fill="#eab308"/>
+                <text x="120" y="161" fill="#0f172a" font-size="12" font-weight="bold" text-anchor="middle">6 ATP &rarr; 6 ADP + 6 Pᵢ</text>
+                <!-- 6 NADPH Box -->
+                <rect x="55" y="210" width="130" height="32" rx="8" fill="#ca8a04"/>
+                <text x="120" y="231" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="middle">6 NADPH &rarr; 6 NADP⁺</text>
+
+                <!-- 6 PGAL Box -->
+                <rect x="175" y="295" width="155" height="52" rx="10" fill="#0f172a" stroke="#4ade80" stroke-width="3"/>
+                <text x="252" y="316" fill="#4ade80" font-size="13" font-weight="bold" text-anchor="middle">3. 6 PGAL (3-Carbon)</text>
+                <g transform="translate(232, 326)" fill="#4ade80">
+                  <circle cx="0" cy="6" r="6"/><circle cx="18" cy="6" r="6"/><circle cx="36" cy="6" r="6"/>
+                </g>
+              </g>
+
+              <!-- STEP 4 & 5: 1 PGAL Exported +Sucrose (Bottom) -->
+              <g id="calvin-node-5" opacity="0.35">
+                <path d="M 332 325 L 375 375" fill="none" stroke="#4ade80" stroke-width="5" marker-end="url(#arrowYellow)"/>
+                <rect x="295" y="380" width="165" height="42" rx="8" fill="#15803d" stroke="#86efac" stroke-width="2"/>
+                <text x="377" y="398" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="middle">5 &amp; 6. 1 PGAL Exported</text>
+                <text x="377" y="414" fill="#bbf7d0" font-size="11" text-anchor="middle">&rarr; Combines to form Sucrose</text>
+              </g>
+
+              <!-- STEP 4: 5 PGAL Regenerate 3 RuBP using 3 ATP (Right) -->
+              <g id="calvin-node-4" opacity="0.35">
+                <rect x="430" y="295" width="155" height="52" rx="10" fill="#0f172a" stroke="#38bdf8" stroke-width="2"/>
+                <text x="507" y="316" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">4. 5 PGAL Continue</text>
+                <g transform="translate(487, 326)" fill="#38bdf8">
+                  <circle cx="0" cy="6" r="6"/><circle cx="18" cy="6" r="6"/><circle cx="36" cy="6" r="6"/>
+                </g>
+
+                <path d="M 525 290 C 555 235, 555 185, 525 122" fill="none" stroke="#38bdf8" stroke-width="5" marker-end="url(#arrowBlue)"/>
+                <rect x="565" y="185" width="130" height="32" rx="8" fill="#eab308"/>
+                <text x="630" y="206" fill="#0f172a" font-size="12" font-weight="bold" text-anchor="middle">3 ATP &rarr; 3 ADP + 2 Pᵢ</text>
+              </g>
+            </svg>
+          </div>
+
+          <!-- Step Navigation Bar -->
+          <div class="control-bar">
+            <div class="btn-group">
+              <button class="btn" id="calvin-prev-btn" onclick="changeCalvinStep(-1)">&larr; Prev Step</button>
+              <button class="btn btn-primary" id="calvin-next-btn" onclick="changeCalvinStep(1)">Next Step &rarr;</button>
+            </div>
+            <div class="step-dots" id="calvin-dots"></div>
+          </div>
+        </div>
+
+        <!-- Info Panel for Tab 4 (Calvin Cycle + C3/C4/CAM Explorer) -->
+        <div class="info-card">
+          <div class="card-header">
+            <h2>Calvin–Benson Step &amp; Plant Adaptations</h2>
+          </div>
+          <span class="step-badge" id="calvin-step-badge">Step 1 of 5</span>
+          <h3 class="info-title" id="calvin-step-title">Carbon Fixation by Rubisco</h3>
+          <div class="info-body" id="calvin-step-desc"></div>
+
+          <!-- Accounting Summary -->
+          <div class="tally-grid" style="margin-bottom: 18px;">
+            <div class="tally-item">
+              <div class="tally-val">3 CO₂</div>
+              <div class="tally-label">Carbon Fixed</div>
+            </div>
+            <div class="tally-item">
+              <div class="tally-val">9 ATP</div>
+              <div class="tally-label">Used (6 + 3)</div>
+            </div>
+            <div class="tally-item">
+              <div class="tally-val">6 NADPH</div>
+              <div class="tally-label">Reduced</div>
+            </div>
+          </div>
+
+          <!-- Stomata & C3 / C4 / CAM Interactive Mini-Module -->
+          <div style="border-top: 1px solid var(--border-color); padding-top: 14px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:6px;">
+              <strong style="color:var(--accent-light-green);">Hot, Dry Day (Stomata Closed):</strong>
+              <div class="mode-switch">
+                <button class="mode-btn active" id="btn-plant-c3" onclick="setPlantType('c3')">C3 Plants</button>
+                <button class="mode-btn" id="btn-plant-c4" onclick="setPlantType('c4')">C4 Plants</button>
+                <button class="mode-btn" id="btn-plant-cam" onclick="setPlantType('cam')">CAM Plants</button>
+              </div>
+            </div>
+            <div class="key-box" id="plant-adaptation-box" style="margin-top:0;">
+              <strong>C3 Plants (e.g., Barley, Bluegrass) &amp; Photorespiration:</strong><br>
+              When <em>stomata</em> close on hot, dry days to conserve water, O₂ builds up and CO₂ drops. <strong>Rubisco</strong> attaches O₂ instead of CO₂ to RuBP (<em>photorespiration</em>), losing fixed carbon and wasting ATP across the chloroplast, peroxisome, and mitochondrion (Fig. 6.15).
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ==========================================
+       JAVASCRIPT LOGIC
+       ========================================== -->
+  <script>
+    /* --- TAB SWITCHING --- */
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-section').forEach(sec => sec.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+      document.getElementById('tab-' + tabId).classList.add('active');
+      const idxMap = { overview: 0, light: 1, ldr: 2, lir: 3 };
+      document.querySelectorAll('.tab-btn')[idxMap[tabId]].classList.add('active');
+    }
+
+    /* --- TAB 1: OVERVIEW INTERACTIVITY (6.2) --- */
+    const overviewData = {
+      autotrophs: {
+        badge: "Section 6.2 • Energy Flow",
+        title: "Autotrophs vs. Heterotrophs (Fig. 6.2)",
+        desc: `<p><strong>Autotrophs</strong> ("self-nourishing" producers like plants, algae, and cyanobacteria) harvest energy directly from sunlight and obtain carbon from inorganic <strong>CO₂</strong>.</p><br><p><strong>Heterotrophs</strong> ("other-nourishing" consumers like animals and fungi) get their carbon and energy by breaking down organic molecules originally assembled by autotrophs.</p>`,
+        key: `<strong>Equation Summary:</strong> Light Energy + CO₂ + H₂O &rarr; Sugars + O₂`
+      },
+      membrane: {
+        badge: "Chloroplast Anatomy • Fig. 6.4",
+        title: "Chloroplast Outer Membranes",
+        desc: `<p>In eukaryotic plants and algae, photosynthesis takes place inside <strong>chloroplasts</strong>—organelles that evolved from ancient cyanobacteria.</p><br><p>Two outer membranes enclose a semi-fluid interior called the <strong>stroma</strong>, inside of which is suspended a continuous, folded third membrane system: the <strong>thylakoid membrane</strong>.</p>`,
+        key: `<strong>Evolution Connection:</strong> Modern cyanobacteria have multiple thylakoid membranes suspended directly in their cytoplasm.`
+      },
+      thylakoid: {
+        badge: "Stage 1 • The 'Photo' Part",
+        title: "Light-Dependent Reactions (Thylakoid Membrane)",
+        desc: `<p>Folded into stacks of interconnected disks (grana) enclosing a single continuous internal <strong>thylakoid compartment</strong>.</p><br><p>Pigments and photosystems embedded in the thylakoid membrane capture sunlight, split water molecules (<strong>H₂O</strong>), release oxygen gas (<strong>O₂</strong>), and convert light energy into chemical bond energy in <strong>ATP</strong> and <strong>NADPH</strong>.</p>`,
+        key: `<strong>Inputs:</strong> Light Energy, H₂O, ADP + Pᵢ, NADP⁺<br><strong>Outputs:</strong> O₂, ATP, NADPH`
+      },
+      coenzymes: {
+        badge: "Connecting Stage 1 & Stage 2 • Fig. 6.3",
+        title: "The Coenzyme Energy Bridge (ATP & NADPH)",
+        desc: `<p>How do the two stages of photosynthesis link together? Through recyclable coenzymes!</p><br><p><strong>ATP</strong> (energy carrier) and <strong>NADPH</strong> (electron/hydrogen carrier) formed in Stage 1 diffuse into the stroma to power sugar assembly in Stage 2. Once depleted, <strong>ADP</strong> and <strong>NADP⁺</strong> cycle right back to the thylakoid membrane to be recharged.</p>`,
+        key: `<strong>Charged Forms:</strong> ATP &amp; NADPH (to Calvin Cycle)<br><strong>Recycled Forms:</strong> ADP + Pᵢ &amp; NADP⁺ (back to Thylakoids)`
+      },
+      stroma: {
+        badge: "Chloroplast Interior • Fig. 6.4",
+        title: "The Stroma",
+        desc: `<p>The <strong>stroma</strong> is the cytosol-like fluid between the thylakoid membrane and the two outer membranes of a chloroplast. It also holds the chloroplast's own DNA and ribosomes.</p><br><p>The enzymes that catalyze the <strong>light-independent reactions (Calvin–Benson cycle)</strong> are dissolved here in the stroma.</p>`,
+        key: `<strong>Key Enzyme in Stroma:</strong> Rubisco (the most abundant protein on Earth!)`
+      },
+      calvin: {
+        badge: "Stage 2 • The 'Synthesis' Part",
+        title: "Light-Independent Reactions (Calvin–Benson Cycle)",
+        desc: `<p>Also called the <strong>Calvin–Benson cycle</strong>, these reactions take place in the <strong>stroma</strong>. They do not require light directly—instead, they run on the ATP and NADPH delivered by the light-dependent reactions.</p><br><p>Carbon atoms from <strong>CO₂</strong> are fixed into organic backbones to build three-carbon sugars (<strong>PGAL</strong>), which combine to form sucrose and starch.</p>`,
+        key: `<strong>Inputs:</strong> CO₂, ATP, NADPH<br><strong>Outputs:</strong> Sugars (PGAL / Sucrose), ADP, NADP⁺`
+      }
+    };
+
+    function selectOverviewPart(partKey) {
+      const data = overviewData[partKey];
+      document.getElementById('ov-badge').textContent = data.badge;
+      document.getElementById('ov-title').textContent = data.title;
+      document.getElementById('ov-desc').innerHTML = data.desc;
+      document.getElementById('ov-keybox').innerHTML = data.key;
+    }
+
+    /* --- TAB 2: SUNLIGHT & PIGMENTS SLIDER (6.3) --- */
+    function updateWavelength(nm) {
+      nm = parseInt(nm);
+      // Move cursor on SVG (400nm = x:60, 700nm = x:710)
+      const xPos = 60 + ((nm - 400) / 300) * 650;
+      document.getElementById('wavelength-cursor').setAttribute('transform', `translate(${xPos}, 0)`);
+
+      // Determine color name & photon energy
+      let colorName = "Violet";
+      let energyTxt = "Highest Energy (Shortest Wavelength)";
+      if (nm >= 430 && nm < 490) { colorName = "Blue"; energyTxt = "High Energy (Short Wavelength)"; }
+      else if (nm >= 490 && nm < 560) { colorName = "Green"; energyTxt = "Medium Energy"; }
+      else if (nm >= 560 && nm < 590) { colorName = "Yellow"; energyTxt = "Medium-Low Energy"; }
+      else if (nm >= 590 && nm < 630) { colorName = "Orange"; energyTxt = "Low Energy (Longer Wavelength)"; }
+      else if (nm >= 630) { colorName = "Red"; energyTxt = "Lowest Energy (Longest Wavelength)"; }
+
+      document.getElementById('wl-readout').textContent = `${nm} nm (${colorName} Light)`;
+      document.getElementById('wl-energy').textContent = energyTxt;
+
+      // Approximate Gaussian absorption curves matching Fig 6.8
+      const chla = Math.min(98, Math.round(
+        90 * Math.exp(-Math.pow((nm - 430) / 28, 2)) +
+        75 * Math.exp(-Math.pow((nm - 662) / 22, 2)) + 4
+      ));
+      const chlb = Math.min(98, Math.round(
+        94 * Math.exp(-Math.pow((nm - 455) / 26, 2)) +
+        45 * Math.exp(-Math.pow((nm - 642) / 22, 2)) + 3
+      ));
+      const caro = Math.min(95, Math.round(
+        82 * Math.exp(-Math.pow((nm - 450) / 25, 2)) +
+        78 * Math.exp(-Math.pow((nm - 480) / 22, 2)) + 2
+      ));
+
+      document.getElementById('abs-chla-txt').textContent = chla + "%";
+      document.getElementById('abs-chla-bar').style.width = chla + "%";
+
+      document.getElementById('abs-chlb-txt').textContent = chlb + "%";
+      document.getElementById('abs-chlb-bar').style.width = chlb + "%";
+
+      document.getElementById('abs-caro-txt').textContent = caro + "%";
+      document.getElementById('abs-caro-bar').style.width = caro + "%";
+
+      const maxAbs = Math.max(chla, chlb, caro);
+      const o2El = document.getElementById('o2-rate-txt');
+      if (maxAbs > 65) {
+        o2El.textContent = "Very High (Bacteria Swarm Here!)";
+        o2El.style.color = "#4ade80";
+      } else if (maxAbs > 30) {
+        o2El.textContent = "Moderate O₂ Output";
+        o2El.style.color = "#facc15";
+      } else {
+        o2El.textContent = "Very Low (Light Reflected/Transmitted)";
+        o2El.style.color = "#f87171";
+      }
+    }
+
+    /* --- TAB 3: LIGHT-DEPENDENT REACTIONS (6.4) --- */
+    let ldrMode = 'noncyclic';
+    let ldrStep = 0;
+
+    const ldrStepsData = {
+      noncyclic: [
+        {
+          title: "1. Photosystem II (p680) Absorbs Light Energy",
+          desc: `<p>Photosynthesis begins when pigments in a <strong>light-harvesting complex</strong> absorb photons and pass that energy (like a volleyball) to the reaction center of <strong>Photosystem II</strong>.</p><br><p>When the special pair of chlorophyll <em>a</em> molecules (<strong>p680</strong>) absorbs energy, it emits high-energy electrons (e⁻).</p>`,
+          highlights: ['svg-ps2', 'ldr-light-ps2']
+        },
+        {
+          title: "2. Photolysis: Splitting Water Molecules",
+          desc: `<p>A Photosystem II that has lost electrons is a strong oxidizer—it pulls replacement electrons off of <strong>water molecules (H₂O)</strong> inside the thylakoid compartment.</p><br><p>Splitting water by light energy is called <strong>photolysis</strong>. Water breaks apart into <strong>hydrogen ions (H⁺)</strong> that stay in the compartment and oxygen atoms that combine and leave the cell as <strong>O₂ gas</strong>.</p>`,
+          highlights: ['svg-ps2', 'ldr-photolysis']
+        },
+        {
+          title: "3. Electrons Enter the First Electron Transfer Chain",
+          desc: `<p>The excited electrons emitted from Photosystem II enter an <strong>electron transfer chain (ETC)</strong> embedded in the thylakoid membrane.</p><br><p>As electrons move through the chain in a series of redox reactions, they release a bit of free energy at each step (the <strong>Z scheme</strong>, Fig. 6.13).</p>`,
+          highlights: ['ldr-etc1']
+        },
+        {
+          title: "4. Active Transport of H⁺ Forms a Gradient",
+          desc: `<p>Molecules of the electron transfer chain use the energy released by the electrons to actively transport <strong>hydrogen ions (H⁺)</strong> from the stroma into the thylakoid compartment.</p><br><p>Combined with H⁺ from split water, this builds a steep <strong>hydrogen ion gradient</strong> across the thylakoid membrane (potential energy).</p>`,
+          highlights: ['ldr-etc1', 'ldr-hpump', 'ldr-hpool']
+        },
+        {
+          title: "5. Photosystem I (p700) Absorbs Light Energy",
+          desc: `<p>Electrons reaching the end of the first transfer chain replace electrons lost by <strong>Photosystem I</strong>.</p><br><p>When Photosystem I absorbs another photon of light energy, its reaction center special pair (<strong>p700</strong>) emits high-energy electrons.</p>`,
+          highlights: ['svg-ps1', 'ldr-light-ps1']
+        },
+        {
+          title: "6. Second Electron Transfer Chain Forms NADPH",
+          desc: `<p>Electrons released by Photosystem I move through a <strong>second electron transfer chain</strong>.</p><br><p>At the end of this chain in the stroma, the coenzyme <strong>NADP⁺</strong> accepts the electrons along with H⁺ to form <strong>NADPH</strong>—a powerful reducing agent that will carry electrons to the Calvin–Benson cycle.</p>`,
+          highlights: ['svg-ps1', 'ldr-etc2']
+        },
+        {
+          title: "7. Hydrogen Ions Flow Through ATP Synthases",
+          desc: `<p>Positively charged <strong>H⁺ ions</strong> packed inside the thylakoid compartment are propelled by their concentration and electrical gradient toward the stroma.</p><br><p>Because ions cannot diffuse through a lipid bilayer, they can only exit by flowing through the interior of <strong>ATP synthases</strong>—molecular motors embedded in the membrane.</p>`,
+          highlights: ['ldr-hpool', 'ldr-atpsynthase']
+        },
+        {
+          title: "8. Electron Transfer Phosphorylation Produces ATP",
+          desc: `<p>The flow of H⁺ ions through <strong>ATP synthase</strong> causes this rotary enzyme to phosphorylate <strong>ADP + Pᵢ</strong>, forming <strong>ATP</strong> in the stroma.</p><br><p>Because light drives electron flow that sets up the H⁺ gradient to make ATP, this entire process is called <strong>electron transfer phosphorylation</strong> (or noncyclic photophosphorylation).</p>`,
+          highlights: ['ldr-atpsynthase']
+        }
+      ],
+      cyclic: [
+        {
+          title: "1 & 2. Photosystem I (p700) Absorbs Light & Emits e⁻",
+          desc: `<p>The <strong>cyclic pathway</strong> (Fig. 6.11) uses <em>only</em> <strong>Photosystem I (p700)</strong>. Photosystem II is not used, and no water is split.</p><br><p>When the special pair in Photosystem I absorbs light energy, it emits electrons that enter the electron transfer chain.</p>`,
+          highlights: ['svg-ps1', 'ldr-light-ps1']
+        },
+        {
+          title: "3 & 4. Electron Flow Pumps H⁺ Across the Membrane",
+          desc: `<p>As electrons from Photosystem I move down the electron transfer chain, energy released by the electrons is used to actively transport <strong>H⁺ ions</strong> from the stroma into the thylakoid compartment.</p><br><p>This sets up and maintains a <strong>hydrogen ion gradient</strong> across the thylakoid membrane.</p>`,
+          highlights: ['ldr-etc1', 'ldr-hpump', 'ldr-hpool']
+        },
+        {
+          title: "5 & 6. H⁺ Flow Drives ATP Synthase (ATP Formed)",
+          desc: `<p>Hydrogen ions in the thylakoid compartment follow their gradient back into the stroma by flowing through <strong>ATP synthases</strong>.</p><br><p>This flow causes ATP synthases to phosphorylate ADP + Pᵢ into <strong>ATP</strong> in the stroma.</p>`,
+          highlights: ['ldr-hpool', 'ldr-atpsynthase']
+        },
+        {
+          title: "7. Electrons Cycle Back to Photosystem I",
+          desc: `<p>Instead of going to NADP⁺, electrons at the end of the transfer chain <strong>cycle right back to Photosystem I</strong>, replacing its lost electrons!</p><br><p><strong>Result:</strong> Extra <strong>ATP</strong> is made to support the Calvin–Benson cycle, <em>without</em> producing NADPH or O₂.</p>`,
+          highlights: ['svg-ps1', 'ldr-cyclic-loop', 'ldr-etc1']
+        }
+      ]
+    };
+
+    function setLDRMode(mode) {
+      ldrMode = mode;
+      ldrStep = 0;
+      document.getElementById('btn-mode-noncyclic').classList.toggle('active', mode === 'noncyclic');
+      document.getElementById('btn-mode-cyclic').classList.toggle('active', mode === 'cyclic');
+
+      document.getElementById('ldr-mode-heading').textContent =
+        mode === 'noncyclic' ? 'Noncyclic Pathway (Figure 6.12)' : 'Cyclic Pathway (Figure 6.11)';
+
+      document.getElementById('ldr-tally-o2').textContent = mode === 'noncyclic' ? 'Yes (from H₂O)' : 'No';
+      document.getElementById('ldr-tally-nadph').textContent = mode === 'noncyclic' ? 'Yes' : 'No';
+      document.getElementById('ldr-tally-atp').textContent = 'Yes (via H⁺)';
+
+      // Dim PS2 and Photolysis in Cyclic Mode
+      document.getElementById('svg-ps2').style.opacity = mode === 'noncyclic' ? '1' : '0.12';
+      renderLDRStep();
+    }
+
+    function changeLDRStep(delta) {
+      const steps = ldrStepsData[ldrMode];
+      ldrStep = Math.max(0, Math.min(steps.length - 1, ldrStep + delta));
+      renderLDRStep();
+    }
+
+    function jumpLDRStep(idx) {
+      ldrStep = idx;
+      renderLDRStep();
+    }
+
+    function renderLDRStep() {
+      const steps = ldrStepsData[ldrMode];
+      const current = steps[ldrStep];
+
+      document.getElementById('ldr-step-badge').textContent = `Step ${ldrStep + 1} of ${steps.length}`;
+      document.getElementById('ldr-step-title').textContent = current.title;
+      document.getElementById('ldr-step-desc').innerHTML = current.desc;
+
+      document.getElementById('ldr-prev-btn').disabled = (ldrStep === 0);
+      document.getElementById('ldr-next-btn').disabled = (ldrStep === steps.length - 1);
+
+      // Build step dots
+      const dotsContainer = document.getElementById('ldr-dots');
+      dotsContainer.innerHTML = '';
+      steps.forEach((_, idx) => {
+        const dot = document.createElement('div');
+        dot.className = 'step-dot' + (idx === ldrStep ? ' active' : '');
+        dot.textContent = idx + 1;
+        dot.onclick = () => jumpLDRStep(idx);
+        dotsContainer.appendChild(dot);
+      });
+
+      // Reset all SVG groups
+      const allGroups = ['ldr-light-ps2', 'ldr-photolysis', 'ldr-etc1', 'ldr-hpump', 'ldr-light-ps1', 'ldr-etc2', 'ldr-hpool', 'ldr-atpsynthase', 'ldr-cyclic-loop'];
+      allGroups.forEach(id => {
+        const el = document.getElementById(id);
+        el.style.opacity = (id === 'ldr-cyclic-loop') ? '0' : '0.2';
+        el.classList.remove('pulse-active');
+      });
+
+      if (ldrMode === 'cyclic') {
+        document.getElementById('ldr-photolysis').style.opacity = '0.05';
+        document.getElementById('ldr-etc2').style.opacity = '0.05';
+      }
+
+      // Highlight active elements for this step
+      current.highlights.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.opacity = '1';
+          el.classList.add('pulse-active');
+        }
+      });
+    }
+
+    /* --- TAB 4: CALVIN-BENSON CYCLE (6.5) --- */
+    let calvinStep = 0;
+    const calvinStepsData = [
+      {
+        title: "1. Carbon Fixation by Rubisco",
+        desc: `<p>Three <strong>CO₂</strong> molecules diffuse into the stroma. The enzyme <strong>rubisco</strong> attaches each CO₂ carbon atom to a five-carbon <strong>RuBP</strong> (ribulose bisphosphate) molecule.</p><br><p>Incorporating carbon from an inorganic source (CO₂) into an organic molecule is called <strong>carbon fixation</strong>.</p>`,
+        nodes: ['calvin-node-1', 'calvin-node-rubp']
+      },
+      {
+        title: "2. Formation of Six PGA (3-Carbon Intermediate)",
+        desc: `<p>The six-carbon intermediate formed when CO₂ attaches to RuBP is unstable, so it splits right away into two three-carbon molecules of <strong>PGA (phosphoglycerate)</strong>.</p><br><p>Across three cycles (3 CO₂ + 3 RuBP), <strong>6 molecules of three-carbon PGA</strong> form.</p>`,
+        nodes: ['calvin-node-2']
+      },
+      {
+        title: "3. ATP & NADPH Convert 6 PGA into 6 PGAL",
+        desc: `<p>Each of the 6 PGA molecules receives a phosphate group from <strong>ATP</strong> (requiring <strong>6 ATP</strong> total) plus hydrogen and electrons from <strong>NADPH</strong> (requiring <strong>6 NADPH</strong> total).</p><br><p>This produces <strong>6 molecules of PGAL</strong> (phosphoglyceraldehyde), a phosphorylated three-carbon sugar. The resulting ADP and NADP⁺ diffuse back to the thylakoid membrane.</p>`,
+        nodes: ['calvin-node-3']
+      },
+      {
+        title: "4. Regeneration of 3 RuBP (Using 3 ATP)",
+        desc: `<p>Out of the 6 PGAL produced, <strong>5 PGAL</strong> molecules (15 carbons total) continue in the cycle to regenerate the <strong>3 molecules of five-carbon RuBP</strong> (15 carbons total).</p><br><p>These rearrangement reactions require phosphate-group transfers from <strong>3 additional ATP</strong> molecules.</p>`,
+        nodes: ['calvin-node-4', 'calvin-node-rubp']
+      },
+      {
+        title: "5 & 6. Export of 1 PGAL to Build Sucrose & Starch",
+        desc: `<p>After three turns of the cycle fixing 3 CO₂, <strong>1 net PGAL molecule</strong> (3 carbons) exits the cycle and is exported from the chloroplast to the cytoplasm.</p><br><p>Two PGAL molecules combine in the cytoplasm to form <strong>sucrose</strong> (the main transport sugar in plants). Excess PGAL during sunny days is stored in chloroplasts as <strong>starch</strong> and broken down at night!</p>`,
+        nodes: ['calvin-node-5']
+      }
+    ];
+
+    function changeCalvinStep(delta) {
+      calvinStep = Math.max(0, Math.min(calvinStepsData.length - 1, calvinStep + delta));
+      renderCalvinStep();
+    }
+
+    function jumpCalvinStep(idx) {
+      calvinStep = idx;
+      renderCalvinStep();
+    }
+
+    function renderCalvinStep() {
+      const current = calvinStepsData[calvinStep];
+      document.getElementById('calvin-step-badge').textContent = `Step ${calvinStep + 1} of ${calvinStepsData.length}`;
+      document.getElementById('calvin-step-title').textContent = current.title;
+      document.getElementById('calvin-step-desc').innerHTML = current.desc;
+
+      document.getElementById('calvin-prev-btn').disabled = (calvinStep === 0);
+      document.getElementById('calvin-next-btn').disabled = (calvinStep === calvinStepsData.length - 1);
+
+      const dotsContainer = document.getElementById('calvin-dots');
+      dotsContainer.innerHTML = '';
+      calvinStepsData.forEach((_, idx) => {
+        const dot = document.createElement('div');
+        dot.className = 'step-dot' + (idx === calvinStep ? ' active' : '');
+        dot.textContent = idx + 1;
+        dot.onclick = () => jumpCalvinStep(idx);
+        dotsContainer.appendChild(dot);
+      });
+
+      const allNodes = ['calvin-node-1', 'calvin-node-rubp', 'calvin-node-2', 'calvin-node-3', 'calvin-node-4', 'calvin-node-5'];
+      allNodes.forEach(id => {
+        const el = document.getElementById(id);
+        el.style.opacity = '0.28';
+        el.classList.remove('pulse-active');
+      });
+
+      current.nodes.forEach(id => {
+        const el = document.getElementById(id);
+        el.style.opacity = '1';
+        el.classList.add('pulse-active');
+      });
+    }
+
+    /* --- C3 / C4 / CAM PLANT ADAPTATIONS --- */
+    const plantAdaptations = {
+      c3: `<strong>C3 Plants (e.g., Barley, Kentucky Bluegrass) &amp; Photorespiration:</strong><br>
+           Fix carbon only once via the Calvin–Benson cycle (first stable intermediate is 3-carbon PGA). When <em>stomata</em> close on hot, dry days, O₂ rises and CO₂ drops. <strong>Rubisco</strong> binds O₂ instead of CO₂ (<em>photorespiration</em>), losing fixed CO₂ and costing extra ATP across the chloroplast, peroxisome, and mitochondrion (Fig. 6.15).`,
+      c4: `<strong>C4 Plants (e.g., Corn, Millet, Crabgrass) – Spatial Separation:</strong><br>
+           Minimize photorespiration by fixing carbon <em>twice, in two cell types</em> (Fig. 6.16). First, <strong>mesophyll cells</strong> fix CO₂ into 4-carbon <em>oxaloacetate/malate</em> using an enzyme that ignores O₂. Malate is pumped into <strong>bundle-sheath cells</strong>, releasing high CO₂ right next to Rubisco! (Bundle-sheath cells only run the cyclic pathway, so no O₂ is produced near Rubisco).`,
+      cam: `<strong>CAM Plants (e.g., Cacti, Succulents) – Temporal Separation:</strong><br>
+            Minimize photorespiration by fixing carbon <em>twice, at different times of day</em>. CAM plants open their <strong>stomata at night</strong> (when cooler temperatures reduce water loss) to fix CO₂ via the C4 cycle and store <em>malate</em> in central vacuoles. During the <strong>day</strong>, stomata close and malate breaks down to supply CO₂ to the Calvin–Benson cycle!`
+    };
+
+    function setPlantType(type) {
+      ['c3', 'c4', 'cam'].forEach(t => {
+        document.getElementById('btn-plant-' + t).classList.toggle('active', t === type);
+      });
+      document.getElementById('plant-adaptation-box').innerHTML = plantAdaptations[type];
+    }
+
+    // Initialize views on load
+    window.onload = function() {
+      updateWavelength(450);
+      renderLDRStep();
+      renderCalvinStep();
+    };
+  </script>
+</body>
+</html>
