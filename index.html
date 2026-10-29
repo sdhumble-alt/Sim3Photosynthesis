@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chapter 6: Where It Starts – Photosynthesis Interactive Explorer</title>
+  <title>Photosynthesis</title>
   <style>
     :root {
       --bg-dark: #0f172a;
@@ -34,7 +34,7 @@
       padding-bottom: 50px;
     }
 
-    /* Header & Equation Banner */
+    /* Header */
     header {
       background: linear-gradient(135deg, #064e3b 0%, #0f172a 100%);
       padding: 24px 32px;
@@ -55,23 +55,6 @@
     .header-title p {
       color: var(--text-muted);
       font-size: 0.95rem;
-    }
-
-    .equation-pill {
-      background: rgba(15, 23, 42, 0.8);
-      border: 1px solid var(--accent-green);
-      padding: 10px 20px;
-      border-radius: 50px;
-      font-weight: 600;
-      font-size: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      box-shadow: 0 4px 15px rgba(34, 197, 94, 0.2);
-    }
-
-    .eq-highlight {
-      color: var(--accent-yellow);
     }
 
     /* Main Navigation Tabs */
@@ -420,30 +403,8 @@
       50% { filter: drop-shadow(0 0 14px #facc15); }
     }
 
-    @keyframes spinWheel {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
     .pulse-active {
       animation: pulseGlow 1.5s infinite;
-    }
-
-    .spin-active {
-      transform-box: fill-box;
-      transform-origin: center;
-      animation: spinWheel 3s linear infinite;
-    }
-
-    .vocab-pill {
-      display: inline-block;
-      background: #334155;
-      color: #38bdf8;
-      padding: 2px 8px;
-      border-radius: 4px;
-      font-weight: 600;
-      font-size: 0.85rem;
-      margin: 2px;
     }
   </style>
 </head>
@@ -452,28 +413,24 @@
   <!-- HEADER -->
   <header>
     <div class="header-title">
-      <h1>Chapter 6: Where It Starts – Photosynthesis</h1>
+      <h1>Photosynthesis</h1>
       <p>Interactive Visual Guide to Chloroplasts, Pigments, Light-Dependent &amp; Light-Independent Reactions</p>
-    </div>
-    <div class="equation-pill">
-      <span>Overall Pathway:</span>
-      <span class="eq-highlight">Light Energy</span> + 6 CO<sub>2</sub> + 6 H<sub>2</sub>O &rarr; C<sub>6</sub>H<sub>12</sub>O<sub>6</sub> (Sugars) + 6 O<sub>2</sub>
     </div>
   </header>
 
   <!-- NAVIGATION TABS -->
   <nav class="nav-tabs">
     <button class="tab-btn active" onclick="switchTab('overview')">
-      <span>1. Overview &amp; Chloroplast (6.2)</span>
+      <span>Overview &amp; Chloroplast</span>
     </button>
     <button class="tab-btn" onclick="switchTab('light')">
-      <span>2. Sunlight &amp; Pigments (6.3)</span>
+      <span>Sunlight &amp; Pigments</span>
     </button>
     <button class="tab-btn" onclick="switchTab('ldr')">
-      <span>3. Light-Dependent Reactions (6.4)</span>
+      <span>Light-Dependent Reactions</span>
     </button>
     <button class="tab-btn" onclick="switchTab('lir')">
-      <span>4. Light-Independent Reactions (6.5)</span>
+      <span>Light-Independent Reactions</span>
     </button>
   </nav>
 
@@ -481,7 +438,7 @@
   <div class="container">
 
     <!-- ==========================================
-         TAB 1: OVERVIEW & CHLOROPLAST ANATOMY (6.2)
+         TAB 1: OVERVIEW & CHLOROPLAST ANATOMY
          ========================================== -->
     <section id="tab-overview" class="tab-section active">
       <div class="workspace-grid">
@@ -586,22 +543,12 @@
               </g>
             </svg>
           </div>
-
-          <div class="control-bar">
-            <span style="font-size: 0.9rem; color: var(--text-muted);">Select a component to inspect:</span>
-            <div class="btn-group">
-              <button class="btn" onclick="selectOverviewPart('autotrophs')">Autotrophs vs. Heterotrophs</button>
-              <button class="btn" onclick="selectOverviewPart('thylakoid')">Stage 1: Thylakoids</button>
-              <button class="btn" onclick="selectOverviewPart('coenzymes')">Coenzyme Bridge</button>
-              <button class="btn" onclick="selectOverviewPart('calvin')">Stage 2: Stroma</button>
-            </div>
-          </div>
         </div>
 
         <!-- Info Panel for Tab 1 -->
         <div class="info-card">
           <div class="card-header">
-            <h2 id="ov-title">6.2 Overview of Photosynthesis</h2>
+            <h2 id="ov-title">Overview of Photosynthesis</h2>
           </div>
           <span class="step-badge" id="ov-badge">Interactive Guide</span>
           <div class="info-body" id="ov-desc">
@@ -611,7 +558,7 @@
           </div>
 
           <div class="key-box" id="ov-keybox">
-            <strong>Take-Home Message 6.2:</strong><br>
+            <strong>Take-Home Message:</strong><br>
             &bull; <strong>Stage 1 (Light-Dependent):</strong> Occurs at the <em>thylakoid membrane</em>. Converts light energy to chemical energy (ATP &amp; NADPH) and splits water to release O<sub>2</sub>.<br>
             &bull; <strong>Stage 2 (Light-Independent):</strong> Occurs in the <em>stroma</em>. Uses ATP and NADPH to assemble sugars from CO<sub>2</sub> and water.
           </div>
@@ -620,13 +567,13 @@
     </section>
 
     <!-- ==========================================
-         TAB 2: SUNLIGHT & PIGMENTS (6.3)
+         TAB 2: SUNLIGHT & PIGMENTS
          ========================================== -->
     <section id="tab-light" class="tab-section">
       <div class="workspace-grid">
         <div class="visual-card">
           <div class="card-header">
-            <h2>Engelmann's Experiment &amp; Pigment Absorption (6.3)</h2>
+            <h2>Engelmann's Experiment &amp; Pigment Absorption</h2>
             <span style="font-size: 0.85rem; color: var(--accent-yellow);">Drag the wavelength slider below!</span>
           </div>
 
@@ -646,7 +593,7 @@
               </defs>
 
               <!-- Graph Section (Top) -->
-              <text x="65" y="25" fill="#cbd5e1" font-size="13" font-weight="bold">Absorption Spectrum of Photosynthetic Pigments (Fig. 6.8)</text>
+              <text x="65" y="25" fill="#cbd5e1" font-size="13" font-weight="bold">Absorption Spectrum of Photosynthetic Pigments</text>
               <line x1="60" y1="35" x2="60" y2="210" stroke="#64748b" stroke-width="2"/>
               <line x1="60" y1="210" x2="710" y2="210" stroke="#64748b" stroke-width="2"/>
               <text x="20" y="125" fill="#94a3b8" font-size="12" transform="rotate(-90 20,125)" text-anchor="middle">Light Absorbed</text>
@@ -667,7 +614,7 @@
               <text x="692" y="23" fill="#f97316" font-size="12" font-weight="bold">&beta;-carotene</text>
 
               <!-- Engelmann Experiment Section (Bottom) -->
-              <text x="65" y="240" fill="#cbd5e1" font-size="13" font-weight="bold">Theodor Engelmann's 1882 Experiment (Fig. 6.5): Oxygen-Seeking Bacteria</text>
+              <text x="65" y="240" fill="#cbd5e1" font-size="13" font-weight="bold">Theodor Engelmann's 1882 Experiment: Oxygen-Seeking Bacteria</text>
 
               <!-- Spectrum Background for Algae -->
               <rect x="60" y="250" width="650" height="125" fill="url(#rainbowGrad)" opacity="0.35" rx="6"/>
@@ -780,7 +727,7 @@
           </div>
 
           <div class="key-box">
-            <strong>Key Concepts (Section 6.3):</strong><br>
+            <strong>Key Concepts:</strong><br>
             &bull; <strong>Photons &amp; Wavelength:</strong> Shorter wavelengths (violet/blue, ~400 nm) carry <em>more energy</em> per photon than longer wavelengths (red, ~700 nm).<br>
             &bull; <strong>Light-Trapping Region:</strong> Pigments have alternating single and double carbon bonds where electrons absorb photons with the exact energy needed to jump to a higher shell.
           </div>
@@ -789,13 +736,13 @@
     </section>
 
     <!-- ==========================================
-         TAB 3: LIGHT-DEPENDENT REACTIONS (6.4)
+         TAB 3: LIGHT-DEPENDENT REACTIONS
          ========================================== -->
     <section id="tab-ldr" class="tab-section">
       <div class="workspace-grid">
         <div class="visual-card">
           <div class="card-header">
-            <h2>Stage 1: The Thylakoid Membrane (Section 6.4)</h2>
+            <h2>Stage 1: The Thylakoid Membrane</h2>
             <div class="mode-switch">
               <button class="mode-btn active" id="btn-mode-noncyclic" onclick="setLDRMode('noncyclic')">Noncyclic Pathway (Main)</button>
               <button class="mode-btn" id="btn-mode-cyclic" onclick="setLDRMode('cyclic')">Cyclic Pathway (PSI Only)</button>
@@ -930,7 +877,7 @@
         <!-- Info Panel for Tab 3 -->
         <div class="info-card">
           <div class="card-header">
-            <h2 id="ldr-mode-heading">Noncyclic Pathway (Figure 6.12)</h2>
+            <h2 id="ldr-mode-heading">Noncyclic Pathway</h2>
           </div>
           <span class="step-badge" id="ldr-step-badge">Step 1 of 8</span>
           <h3 class="info-title" id="ldr-step-title">Photosystem II Absorbs Light Energy</h3>
@@ -953,7 +900,7 @@
           </div>
 
           <div class="key-box" id="ldr-extra-note">
-            <strong>Why Two Pathways? (Section 6.4):</strong><br>
+            <strong>Why Two Pathways?</strong><br>
             The <em>noncyclic pathway</em> produces both ATP and NADPH using electrons pulled from water. However, it doesn't yield quite enough ATP to balance NADPH use in the Calvin–Benson cycle—so the <em>cyclic pathway</em> runs to supply extra ATP and protect cells under intense light!
           </div>
         </div>
@@ -961,14 +908,14 @@
     </section>
 
     <!-- ==========================================
-         TAB 4: LIGHT-INDEPENDENT REACTIONS (6.5)
+         TAB 4: LIGHT-INDEPENDENT REACTIONS
          ========================================== -->
     <section id="tab-lir" class="tab-section">
       <div class="workspace-grid">
         <div class="visual-card">
           <div class="card-header">
-            <h2>Stage 2: The Calvin–Benson Cycle (Section 6.5)</h2>
-            <span style="font-size: 0.85rem; color: var(--accent-yellow);">Summary of 3 cycles in the Stroma (Fig. 6.14)</span>
+            <h2>Stage 2: The Calvin–Benson Cycle</h2>
+            <span style="font-size: 0.85rem; color: var(--accent-yellow);">Summary of 3 cycles in the Stroma</span>
           </div>
 
           <!-- Calvin-Benson Cycle Interactive SVG -->
@@ -1025,7 +972,7 @@
                 </g>
               </g>
 
-              <!-- STEP 4 & 5: 1 PGAL Exported +Sucrose (Bottom) -->
+              <!-- STEP 4 & 5: 1 PGAL Exported + Sucrose (Bottom) -->
               <g id="calvin-node-5" opacity="0.35">
                 <path d="M 332 325 L 375 375" fill="none" stroke="#4ade80" stroke-width="5" marker-end="url(#arrowYellow)"/>
                 <rect x="295" y="380" width="165" height="42" rx="8" fill="#15803d" stroke="#86efac" stroke-width="2"/>
@@ -1058,17 +1005,17 @@
           </div>
         </div>
 
-        <!-- Info Panel for Tab 4 (Calvin Cycle + C3/C4/CAM Explorer) -->
+        <!-- Info Panel for Tab 4 -->
         <div class="info-card">
           <div class="card-header">
-            <h2>Calvin–Benson Step &amp; Plant Adaptations</h2>
+            <h2>Calvin–Benson Cycle Steps</h2>
           </div>
           <span class="step-badge" id="calvin-step-badge">Step 1 of 5</span>
           <h3 class="info-title" id="calvin-step-title">Carbon Fixation by Rubisco</h3>
           <div class="info-body" id="calvin-step-desc"></div>
 
           <!-- Accounting Summary -->
-          <div class="tally-grid" style="margin-bottom: 18px;">
+          <div class="tally-grid">
             <div class="tally-item">
               <div class="tally-val">3 CO₂</div>
               <div class="tally-label">Carbon Fixed</div>
@@ -1083,20 +1030,10 @@
             </div>
           </div>
 
-          <!-- Stomata & C3 / C4 / CAM Interactive Mini-Module -->
-          <div style="border-top: 1px solid var(--border-color); padding-top: 14px;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:6px;">
-              <strong style="color:var(--accent-light-green);">Hot, Dry Day (Stomata Closed):</strong>
-              <div class="mode-switch">
-                <button class="mode-btn active" id="btn-plant-c3" onclick="setPlantType('c3')">C3 Plants</button>
-                <button class="mode-btn" id="btn-plant-c4" onclick="setPlantType('c4')">C4 Plants</button>
-                <button class="mode-btn" id="btn-plant-cam" onclick="setPlantType('cam')">CAM Plants</button>
-              </div>
-            </div>
-            <div class="key-box" id="plant-adaptation-box" style="margin-top:0;">
-              <strong>C3 Plants (e.g., Barley, Bluegrass) &amp; Photorespiration:</strong><br>
-              When <em>stomata</em> close on hot, dry days to conserve water, O₂ builds up and CO₂ drops. <strong>Rubisco</strong> attaches O₂ instead of CO₂ to RuBP (<em>photorespiration</em>), losing fixed carbon and wasting ATP across the chloroplast, peroxisome, and mitochondrion (Fig. 6.15).
-            </div>
+          <div class="key-box">
+            <strong>Take-Home Message:</strong><br>
+            &bull; The light-independent reactions run on <strong>ATP</strong> and <strong>NADPH</strong> produced during the light-dependent reactions.<br>
+            &bull; Extracting carbon atoms from an inorganic source (like CO₂) and incorporating them into an organic molecule is called <strong>carbon fixation</strong>.
           </div>
         </div>
       </div>
@@ -1118,16 +1055,10 @@
       document.querySelectorAll('.tab-btn')[idxMap[tabId]].classList.add('active');
     }
 
-    /* --- TAB 1: OVERVIEW INTERACTIVITY (6.2) --- */
+    /* --- TAB 1: OVERVIEW INTERACTIVITY --- */
     const overviewData = {
-      autotrophs: {
-        badge: "Section 6.2 • Energy Flow",
-        title: "Autotrophs vs. Heterotrophs (Fig. 6.2)",
-        desc: `<p><strong>Autotrophs</strong> ("self-nourishing" producers like plants, algae, and cyanobacteria) harvest energy directly from sunlight and obtain carbon from inorganic <strong>CO₂</strong>.</p><br><p><strong>Heterotrophs</strong> ("other-nourishing" consumers like animals and fungi) get their carbon and energy by breaking down organic molecules originally assembled by autotrophs.</p>`,
-        key: `<strong>Equation Summary:</strong> Light Energy + CO₂ + H₂O &rarr; Sugars + O₂`
-      },
       membrane: {
-        badge: "Chloroplast Anatomy • Fig. 6.4",
+        badge: "Chloroplast Anatomy",
         title: "Chloroplast Outer Membranes",
         desc: `<p>In eukaryotic plants and algae, photosynthesis takes place inside <strong>chloroplasts</strong>—organelles that evolved from ancient cyanobacteria.</p><br><p>Two outer membranes enclose a semi-fluid interior called the <strong>stroma</strong>, inside of which is suspended a continuous, folded third membrane system: the <strong>thylakoid membrane</strong>.</p>`,
         key: `<strong>Evolution Connection:</strong> Modern cyanobacteria have multiple thylakoid membranes suspended directly in their cytoplasm.`
@@ -1135,17 +1066,17 @@
       thylakoid: {
         badge: "Stage 1 • The 'Photo' Part",
         title: "Light-Dependent Reactions (Thylakoid Membrane)",
-        desc: `<p>Folded into stacks of interconnected disks (grana) enclosing a single continuous internal <strong>thylakoid compartment</strong>.</p><br><p>Pigments and photosystems embedded in the thylakoid membrane capture sunlight, split water molecules (<strong>H₂O</strong>), release oxygen gas (<strong>O₂</strong>), and convert light energy into chemical bond energy in <strong>ATP</strong> and <strong>NADPH</strong>.</p>`,
+        desc: `<p>Folded into stacks of interconnected disks enclosing a single continuous internal <strong>thylakoid compartment</strong>.</p><br><p>Pigments and photosystems embedded in the thylakoid membrane capture sunlight, split water molecules (<strong>H₂O</strong>), release oxygen gas (<strong>O₂</strong>), and convert light energy into chemical bond energy in <strong>ATP</strong> and <strong>NADPH</strong>.</p>`,
         key: `<strong>Inputs:</strong> Light Energy, H₂O, ADP + Pᵢ, NADP⁺<br><strong>Outputs:</strong> O₂, ATP, NADPH`
       },
       coenzymes: {
-        badge: "Connecting Stage 1 & Stage 2 • Fig. 6.3",
+        badge: "Connecting Stage 1 & Stage 2",
         title: "The Coenzyme Energy Bridge (ATP & NADPH)",
         desc: `<p>How do the two stages of photosynthesis link together? Through recyclable coenzymes!</p><br><p><strong>ATP</strong> (energy carrier) and <strong>NADPH</strong> (electron/hydrogen carrier) formed in Stage 1 diffuse into the stroma to power sugar assembly in Stage 2. Once depleted, <strong>ADP</strong> and <strong>NADP⁺</strong> cycle right back to the thylakoid membrane to be recharged.</p>`,
         key: `<strong>Charged Forms:</strong> ATP &amp; NADPH (to Calvin Cycle)<br><strong>Recycled Forms:</strong> ADP + Pᵢ &amp; NADP⁺ (back to Thylakoids)`
       },
       stroma: {
-        badge: "Chloroplast Interior • Fig. 6.4",
+        badge: "Chloroplast Interior",
         title: "The Stroma",
         desc: `<p>The <strong>stroma</strong> is the cytosol-like fluid between the thylakoid membrane and the two outer membranes of a chloroplast. It also holds the chloroplast's own DNA and ribosomes.</p><br><p>The enzymes that catalyze the <strong>light-independent reactions (Calvin–Benson cycle)</strong> are dissolved here in the stroma.</p>`,
         key: `<strong>Key Enzyme in Stroma:</strong> Rubisco (the most abundant protein on Earth!)`
@@ -1166,14 +1097,12 @@
       document.getElementById('ov-keybox').innerHTML = data.key;
     }
 
-    /* --- TAB 2: SUNLIGHT & PIGMENTS SLIDER (6.3) --- */
+    /* --- TAB 2: SUNLIGHT & PIGMENTS SLIDER --- */
     function updateWavelength(nm) {
       nm = parseInt(nm);
-      // Move cursor on SVG (400nm = x:60, 700nm = x:710)
       const xPos = 60 + ((nm - 400) / 300) * 650;
       document.getElementById('wavelength-cursor').setAttribute('transform', `translate(${xPos}, 0)`);
 
-      // Determine color name & photon energy
       let colorName = "Violet";
       let energyTxt = "Highest Energy (Shortest Wavelength)";
       if (nm >= 430 && nm < 490) { colorName = "Blue"; energyTxt = "High Energy (Short Wavelength)"; }
@@ -1185,7 +1114,6 @@
       document.getElementById('wl-readout').textContent = `${nm} nm (${colorName} Light)`;
       document.getElementById('wl-energy').textContent = energyTxt;
 
-      // Approximate Gaussian absorption curves matching Fig 6.8
       const chla = Math.min(98, Math.round(
         90 * Math.exp(-Math.pow((nm - 430) / 28, 2)) +
         75 * Math.exp(-Math.pow((nm - 662) / 22, 2)) + 4
@@ -1222,7 +1150,7 @@
       }
     }
 
-    /* --- TAB 3: LIGHT-DEPENDENT REACTIONS (6.4) --- */
+    /* --- TAB 3: LIGHT-DEPENDENT REACTIONS --- */
     let ldrMode = 'noncyclic';
     let ldrStep = 0;
 
@@ -1240,7 +1168,7 @@
         },
         {
           title: "3. Electrons Enter the First Electron Transfer Chain",
-          desc: `<p>The excited electrons emitted from Photosystem II enter an <strong>electron transfer chain (ETC)</strong> embedded in the thylakoid membrane.</p><br><p>As electrons move through the chain in a series of redox reactions, they release a bit of free energy at each step (the <strong>Z scheme</strong>, Fig. 6.13).</p>`,
+          desc: `<p>The excited electrons emitted from Photosystem II enter an <strong>electron transfer chain (ETC)</strong> embedded in the thylakoid membrane.</p><br><p>As electrons move through the chain in a series of redox reactions, they release a bit of free energy at each step (the <strong>Z scheme</strong>).</p>`,
           highlights: ['ldr-etc1']
         },
         {
@@ -1272,7 +1200,7 @@
       cyclic: [
         {
           title: "1 & 2. Photosystem I (p700) Absorbs Light & Emits e⁻",
-          desc: `<p>The <strong>cyclic pathway</strong> (Fig. 6.11) uses <em>only</em> <strong>Photosystem I (p700)</strong>. Photosystem II is not used, and no water is split.</p><br><p>When the special pair in Photosystem I absorbs light energy, it emits electrons that enter the electron transfer chain.</p>`,
+          desc: `<p>The <strong>cyclic pathway</strong> uses <em>only</em> <strong>Photosystem I (p700)</strong>. Photosystem II is not used, and no water is split.</p><br><p>When the special pair in Photosystem I absorbs light energy, it emits electrons that enter the electron transfer chain.</p>`,
           highlights: ['svg-ps1', 'ldr-light-ps1']
         },
         {
@@ -1300,13 +1228,12 @@
       document.getElementById('btn-mode-cyclic').classList.toggle('active', mode === 'cyclic');
 
       document.getElementById('ldr-mode-heading').textContent =
-        mode === 'noncyclic' ? 'Noncyclic Pathway (Figure 6.12)' : 'Cyclic Pathway (Figure 6.11)';
+        mode === 'noncyclic' ? 'Noncyclic Pathway' : 'Cyclic Pathway';
 
       document.getElementById('ldr-tally-o2').textContent = mode === 'noncyclic' ? 'Yes (from H₂O)' : 'No';
       document.getElementById('ldr-tally-nadph').textContent = mode === 'noncyclic' ? 'Yes' : 'No';
       document.getElementById('ldr-tally-atp').textContent = 'Yes (via H⁺)';
 
-      // Dim PS2 and Photolysis in Cyclic Mode
       document.getElementById('svg-ps2').style.opacity = mode === 'noncyclic' ? '1' : '0.12';
       renderLDRStep();
     }
@@ -1333,7 +1260,6 @@
       document.getElementById('ldr-prev-btn').disabled = (ldrStep === 0);
       document.getElementById('ldr-next-btn').disabled = (ldrStep === steps.length - 1);
 
-      // Build step dots
       const dotsContainer = document.getElementById('ldr-dots');
       dotsContainer.innerHTML = '';
       steps.forEach((_, idx) => {
@@ -1344,7 +1270,6 @@
         dotsContainer.appendChild(dot);
       });
 
-      // Reset all SVG groups
       const allGroups = ['ldr-light-ps2', 'ldr-photolysis', 'ldr-etc1', 'ldr-hpump', 'ldr-light-ps1', 'ldr-etc2', 'ldr-hpool', 'ldr-atpsynthase', 'ldr-cyclic-loop'];
       allGroups.forEach(id => {
         const el = document.getElementById(id);
@@ -1357,7 +1282,6 @@
         document.getElementById('ldr-etc2').style.opacity = '0.05';
       }
 
-      // Highlight active elements for this step
       current.highlights.forEach(id => {
         const el = document.getElementById(id);
         if (el) {
@@ -1367,7 +1291,7 @@
       });
     }
 
-    /* --- TAB 4: CALVIN-BENSON CYCLE (6.5) --- */
+    /* --- TAB 4: CALVIN-BENSON CYCLE --- */
     let calvinStep = 0;
     const calvinStepsData = [
       {
@@ -1438,23 +1362,6 @@
         el.style.opacity = '1';
         el.classList.add('pulse-active');
       });
-    }
-
-    /* --- C3 / C4 / CAM PLANT ADAPTATIONS --- */
-    const plantAdaptations = {
-      c3: `<strong>C3 Plants (e.g., Barley, Kentucky Bluegrass) &amp; Photorespiration:</strong><br>
-           Fix carbon only once via the Calvin–Benson cycle (first stable intermediate is 3-carbon PGA). When <em>stomata</em> close on hot, dry days, O₂ rises and CO₂ drops. <strong>Rubisco</strong> binds O₂ instead of CO₂ (<em>photorespiration</em>), losing fixed CO₂ and costing extra ATP across the chloroplast, peroxisome, and mitochondrion (Fig. 6.15).`,
-      c4: `<strong>C4 Plants (e.g., Corn, Millet, Crabgrass) – Spatial Separation:</strong><br>
-           Minimize photorespiration by fixing carbon <em>twice, in two cell types</em> (Fig. 6.16). First, <strong>mesophyll cells</strong> fix CO₂ into 4-carbon <em>oxaloacetate/malate</em> using an enzyme that ignores O₂. Malate is pumped into <strong>bundle-sheath cells</strong>, releasing high CO₂ right next to Rubisco! (Bundle-sheath cells only run the cyclic pathway, so no O₂ is produced near Rubisco).`,
-      cam: `<strong>CAM Plants (e.g., Cacti, Succulents) – Temporal Separation:</strong><br>
-            Minimize photorespiration by fixing carbon <em>twice, at different times of day</em>. CAM plants open their <strong>stomata at night</strong> (when cooler temperatures reduce water loss) to fix CO₂ via the C4 cycle and store <em>malate</em> in central vacuoles. During the <strong>day</strong>, stomata close and malate breaks down to supply CO₂ to the Calvin–Benson cycle!`
-    };
-
-    function setPlantType(type) {
-      ['c3', 'c4', 'cam'].forEach(t => {
-        document.getElementById('btn-plant-' + t).classList.toggle('active', t === type);
-      });
-      document.getElementById('plant-adaptation-box').innerHTML = plantAdaptations[type];
     }
 
     // Initialize views on load
