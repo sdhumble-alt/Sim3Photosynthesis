@@ -449,7 +449,7 @@
           </div>
 
           <div class="svg-container">
-            <svg viewBox="0 0 750 440" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 750 450" xmlns="http://www.w3.org/2000/svg">
               <defs>
                 <linearGradient id="chloroOuter" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stop-color="#166534" />
@@ -465,81 +465,88 @@
                 <marker id="arrowBlue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                   <path d="M 0 0 L 10 5 L 0 10 z" fill="#38bdf8" />
                 </marker>
+                <marker id="arrowRed" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#f87171" />
+                </marker>
               </defs>
 
               <!-- Outer Membranes -->
               <g class="clickable-hotspot" onclick="selectOverviewPart('membrane')">
-                <rect x="35" y="45" width="680" height="350" rx="175" fill="url(#chloroOuter)" stroke="#4ade80" stroke-width="5"/>
-                <rect x="50" y="60" width="650" height="320" rx="160" fill="url(#stromaGrad)" stroke="#86efac" stroke-width="2" stroke-dasharray="6,4"/>
-                <text x="375" y="390" fill="#86efac" font-size="13" font-weight="bold" text-anchor="middle">CHLOROPLAST (Two Outer Membranes)</text>
+                <rect x="35" y="55" width="680" height="340" rx="170" fill="url(#chloroOuter)" stroke="#4ade80" stroke-width="5"/>
+                <rect x="52" y="72" width="646" height="306" rx="153" fill="url(#stromaGrad)" stroke="#86efac" stroke-width="2" stroke-dasharray="6,4"/>
+                <!-- Clean pill label so dashed line never crosses text -->
+                <rect x="235" y="362" width="280" height="24" rx="12" fill="#0f172a" fill-opacity="0.85" stroke="#4ade80" stroke-width="1.5"/>
+                <text x="375" y="378" fill="#86efac" font-size="12" font-weight="bold" text-anchor="middle">CHLOROPLAST (Two Outer Membranes)</text>
               </g>
 
               <!-- Stroma Background Click Area -->
               <g class="clickable-hotspot" onclick="selectOverviewPart('stroma')">
-                <rect x="75" y="80" width="600" height="280" rx="130" fill="transparent"/>
-                <text x="375" y="95" fill="#bbf7d0" font-size="15" font-weight="bold" text-anchor="middle">STROMA (Cytosol-like fluid surrounding thylakoids)</text>
+                <rect x="75" y="85" width="600" height="270" rx="125" fill="transparent"/>
+                <!-- Positioned in the center gap so no input arrows cross the text -->
+                <rect x="275" y="84" width="230" height="26" rx="8" fill="#064e3b" fill-opacity="0.85" stroke="#86efac" stroke-width="1"/>
+                <text x="390" y="102" fill="#bbf7d0" font-size="13" font-weight="bold" text-anchor="middle">STROMA (Fluid Interior)</text>
               </g>
 
-              <!-- Inputs from outside: Sunlight & Water -->
+              <!-- Stage 1: Thylakoid & Inputs (Sunlight & Water) -->
               <g class="clickable-hotspot" onclick="selectOverviewPart('thylakoid')">
-                <!-- Sunbeams -->
-                <path d="M 140 5 L 185 115" stroke="#fde047" stroke-width="4" stroke-dasharray="6,3" marker-end="url(#arrowYellow)"/>
-                <path d="M 165 5 L 210 115" stroke="#fde047" stroke-width="4" stroke-dasharray="6,3" marker-end="url(#arrowYellow)"/>
-                <text x="130" y="25" fill="#fde047" font-size="14" font-weight="bold">Sunlight Energy</text>
+                <!-- Sunlight Label placed cleanly above rays -->
+                <text x="140" y="22" fill="#fde047" font-size="13" font-weight="bold" text-anchor="middle">Sunlight Energy</text>
+                <path d="M 125 30 L 170 122" stroke="#fde047" stroke-width="4" stroke-dasharray="6,3" marker-end="url(#arrowYellow)"/>
+                <path d="M 150 30 L 195 122" stroke="#fde047" stroke-width="4" stroke-dasharray="6,3" marker-end="url(#arrowYellow)"/>
 
-                <!-- Water input -->
-                <path d="M 250 15 L 250 115" stroke="#38bdf8" stroke-width="4" marker-end="url(#arrowBlue)"/>
-                <text x="250" y="15" fill="#38bdf8" font-size="14" font-weight="bold" text-anchor="middle">H₂O (Water)</text>
+                <!-- Water input separated to the right of sunlight -->
+                <text x="255" y="22" fill="#38bdf8" font-size="13" font-weight="bold" text-anchor="middle">H₂O (Water)</text>
+                <path d="M 255 30 L 255 122" stroke="#38bdf8" stroke-width="4" marker-end="url(#arrowBlue)"/>
 
                 <!-- Thylakoid Stack (Granum) -->
-                <rect x="145" y="125" width="160" height="30" rx="15" fill="#15803d" stroke="#4ade80" stroke-width="3"/>
-                <rect x="145" y="160" width="160" height="30" rx="15" fill="#15803d" stroke="#4ade80" stroke-width="3"/>
-                <rect x="145" y="195" width="160" height="30" rx="15" fill="#15803d" stroke="#4ade80" stroke-width="3"/>
-                <rect x="145" y="230" width="160" height="30" rx="15" fill="#15803d" stroke="#4ade80" stroke-width="3"/>
-                <rect x="145" y="265" width="160" height="30" rx="15" fill="#15803d" stroke="#4ade80" stroke-width="3"/>
-                <rect x="160" y="140" width="130" height="145" rx="10" fill="#166534" opacity="0.9"/>
+                <rect x="135" y="132" width="160" height="30" rx="15" fill="#15803d" stroke="#4ade80" stroke-width="3"/>
+                <rect x="135" y="167" width="160" height="30" rx="15" fill="#15803d" stroke="#4ade80" stroke-width="3"/>
+                <rect x="135" y="202" width="160" height="30" rx="15" fill="#15803d" stroke="#4ade80" stroke-width="3"/>
+                <rect x="135" y="237" width="160" height="30" rx="15" fill="#15803d" stroke="#4ade80" stroke-width="3"/>
+                <rect x="135" y="272" width="160" height="30" rx="15" fill="#15803d" stroke="#4ade80" stroke-width="3"/>
+                <rect x="150" y="147" width="130" height="145" rx="10" fill="#064e3b" opacity="0.92"/>
 
-                <text x="225" y="195" fill="#ffffff" font-size="16" font-weight="bold" text-anchor="middle">STAGE 1:</text>
-                <text x="225" y="215" fill="#4ade80" font-size="15" font-weight="bold" text-anchor="middle">Light-Dependent</text>
-                <text x="225" y="235" fill="#4ade80" font-size="15" font-weight="bold" text-anchor="middle">Reactions</text>
-                <text x="225" y="255" fill="#bbf7d0" font-size="11" text-anchor="middle">(Thylakoid Membrane)</text>
+                <text x="215" y="200" fill="#ffffff" font-size="15" font-weight="bold" text-anchor="middle">STAGE 1:</text>
+                <text x="215" y="220" fill="#4ade80" font-size="14" font-weight="bold" text-anchor="middle">Light-Dependent</text>
+                <text x="215" y="238" fill="#4ade80" font-size="14" font-weight="bold" text-anchor="middle">Reactions</text>
+                <text x="215" y="258" fill="#bbf7d0" font-size="11" text-anchor="middle">(Thylakoid Membrane)</text>
 
                 <!-- Oxygen Output -->
-                <path d="M 225 298 L 225 415" stroke="#38bdf8" stroke-width="4" marker-end="url(#arrowBlue)"/>
-                <text x="225" y="432" fill="#38bdf8" font-size="14" font-weight="bold" text-anchor="middle">O₂ Gas Released</text>
+                <path d="M 215 305 L 215 415" stroke="#38bdf8" stroke-width="4" marker-end="url(#arrowBlue)"/>
+                <text x="215" y="436" fill="#38bdf8" font-size="14" font-weight="bold" text-anchor="middle">O₂ Gas Released</text>
               </g>
 
               <!-- Coenzyme Bridge (ATP / NADPH) -->
               <g class="clickable-hotspot" onclick="selectOverviewPart('coenzymes')">
                 <!-- Top Arrow: ATP & NADPH -->
-                <path d="M 315 175 C 365 145, 405 145, 450 175" fill="none" stroke="#facc15" stroke-width="5" marker-end="url(#arrowYellow)"/>
-                <rect x="335" y="122" width="105" height="32" rx="8" fill="#ca8a04" stroke="#fef08a" stroke-width="2"/>
-                <text x="387" y="143" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">ATP &amp; NADPH</text>
+                <rect x="332" y="130" width="115" height="30" rx="8" fill="#ca8a04" stroke="#fef08a" stroke-width="2"/>
+                <text x="390" y="150" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">ATP &amp; NADPH</text>
+                <path d="M 310 185 C 360 162, 415 162, 458 185" fill="none" stroke="#facc15" stroke-width="5" marker-end="url(#arrowYellow)"/>
 
                 <!-- Bottom Arrow: ADP & NADP+ -->
-                <path d="M 450 250 C 405 280, 365 280, 315 250" fill="none" stroke="#94a3b8" stroke-width="4" stroke-dasharray="6,4" marker-end="url(#arrowBlue)"/>
-                <rect x="335" y="275" width="105" height="30" rx="8" fill="#334155" stroke="#94a3b8" stroke-width="2"/>
-                <text x="387" y="295" fill="#e2e8f0" font-size="12" font-weight="bold" text-anchor="middle">ADP + Pᵢ, NADP⁺</text>
+                <path d="M 458 255 C 415 278, 360 278, 310 255" fill="none" stroke="#94a3b8" stroke-width="4" stroke-dasharray="6,4" marker-end="url(#arrowBlue)"/>
+                <rect x="332" y="282" width="115" height="30" rx="8" fill="#334155" stroke="#94a3b8" stroke-width="2"/>
+                <text x="390" y="302" fill="#e2e8f0" font-size="12" font-weight="bold" text-anchor="middle">ADP + Pᵢ, NADP⁺</text>
               </g>
 
               <!-- Stage 2: Calvin-Benson Cycle -->
               <g class="clickable-hotspot" onclick="selectOverviewPart('calvin')">
                 <!-- CO2 Input -->
-                <path d="M 540 15 L 540 120" stroke="#f87171" stroke-width="4" marker-end="url(#arrowYellow)"/>
-                <text x="540" y="15" fill="#f87171" font-size="14" font-weight="bold" text-anchor="middle">CO₂ (Carbon Dioxide)</text>
+                <text x="555" y="22" fill="#f87171" font-size="13" font-weight="bold" text-anchor="middle">CO₂ (Carbon Dioxide)</text>
+                <path d="M 555 30 L 555 126" stroke="#f87171" stroke-width="4" marker-end="url(#arrowRed)"/>
 
                 <!-- Cycle Circle -->
-                <circle cx="540" cy="210" r="82" fill="#1e3a8a" fill-opacity="0.7" stroke="#38bdf8" stroke-width="6"/>
-                <path d="M 540 128 A 82 82 0 1 1 465 245" fill="none" stroke="#60a5fa" stroke-width="6" marker-end="url(#arrowBlue)"/>
+                <circle cx="555" cy="218" r="82" fill="#1e3a8a" fill-opacity="0.8" stroke="#38bdf8" stroke-width="6"/>
+                <path d="M 555 136 A 82 82 0 1 1 480 252" fill="none" stroke="#60a5fa" stroke-width="6" marker-end="url(#arrowBlue)"/>
 
-                <text x="540" y="190" fill="#ffffff" font-size="16" font-weight="bold" text-anchor="middle">STAGE 2:</text>
-                <text x="540" y="210" fill="#38bdf8" font-size="15" font-weight="bold" text-anchor="middle">Light-Independent</text>
-                <text x="540" y="230" fill="#38bdf8" font-size="15" font-weight="bold" text-anchor="middle">Reactions</text>
-                <text x="540" y="250" fill="#bae6fd" font-size="11" text-anchor="middle">(Calvin–Benson Cycle)</text>
+                <text x="555" y="198" fill="#ffffff" font-size="15" font-weight="bold" text-anchor="middle">STAGE 2:</text>
+                <text x="555" y="218" fill="#38bdf8" font-size="14" font-weight="bold" text-anchor="middle">Light-Independent</text>
+                <text x="555" y="236" fill="#38bdf8" font-size="14" font-weight="bold" text-anchor="middle">Reactions</text>
+                <text x="555" y="256" fill="#bae6fd" font-size="11" text-anchor="middle">(Calvin–Benson Cycle)</text>
 
                 <!-- Sugar Output -->
-                <path d="M 540 295 L 540 415" stroke="#4ade80" stroke-width="5" marker-end="url(#arrowYellow)"/>
-                <text x="540" y="432" fill="#4ade80" font-size="14" font-weight="bold" text-anchor="middle">Sugars (PGAL / Sucrose)</text>
+                <path d="M 555 303 L 555 415" stroke="#4ade80" stroke-width="5" marker-end="url(#arrowYellow)"/>
+                <text x="555" y="436" fill="#4ade80" font-size="14" font-weight="bold" text-anchor="middle">Sugars (PGAL / Sucrose)</text>
               </g>
             </svg>
           </div>
@@ -579,7 +586,7 @@
 
           <!-- SVG of Absorption Graph + Engelmann's Algae/Bacteria -->
           <div class="svg-container">
-            <svg viewBox="0 0 750 410" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 750 415" xmlns="http://www.w3.org/2000/svg">
               <defs>
                 <linearGradient id="rainbowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
                   <stop offset="0%" stop-color="#6b21a8"/>
@@ -593,47 +600,46 @@
               </defs>
 
               <!-- Graph Section (Top) -->
-              <text x="65" y="25" fill="#cbd5e1" font-size="13" font-weight="bold">Absorption Spectrum of Photosynthetic Pigments</text>
-              <line x1="60" y1="35" x2="60" y2="210" stroke="#64748b" stroke-width="2"/>
+              <text x="65" y="24" fill="#cbd5e1" font-size="13" font-weight="bold">Absorption Spectrum of Photosynthetic Pigments</text>
+              <line x1="60" y1="38" x2="60" y2="210" stroke="#64748b" stroke-width="2"/>
               <line x1="60" y1="210" x2="710" y2="210" stroke="#64748b" stroke-width="2"/>
-              <text x="20" y="125" fill="#94a3b8" font-size="12" transform="rotate(-90 20,125)" text-anchor="middle">Light Absorbed</text>
+              <text x="22" y="125" fill="#94a3b8" font-size="12" transform="rotate(-90 22,125)" text-anchor="middle">Light Absorbed</text>
 
               <!-- Chlorophyll a curve (Teal/Green) -->
-              <path d="M 60 150 Q 110 40, 150 65 T 230 205 L 490 205 Q 540 190, 575 195 Q 615 55, 645 100 T 700 208" fill="none" stroke="#14b8a6" stroke-width="4"/>
+              <path d="M 60 150 Q 110 45, 150 68 T 230 205 L 490 205 Q 540 190, 575 195 Q 615 58, 645 100 T 700 208" fill="none" stroke="#14b8a6" stroke-width="4"/>
               <!-- Chlorophyll b curve (Light Green) -->
-              <path d="M 80 185 Q 160 140, 185 45 T 275 205 L 510 205 Q 565 135, 595 160 T 665 208" fill="none" stroke="#84cc16" stroke-width="4"/>
+              <path d="M 80 185 Q 160 140, 185 48 T 275 205 L 510 205 Q 565 135, 595 160 T 665 208" fill="none" stroke="#84cc16" stroke-width="4"/>
               <!-- Beta-carotene curve (Orange) -->
-              <path d="M 70 155 Q 140 60, 180 85 Q 225 55, 255 95 T 335 206 L 700 208" fill="none" stroke="#f97316" stroke-width="4"/>
+              <path d="M 70 155 Q 140 62, 180 85 Q 225 58, 255 95 T 335 206 L 700 208" fill="none" stroke="#f97316" stroke-width="4"/>
 
-              <!-- Legend -->
-              <rect x="470" y="12" width="12" height="12" fill="#14b8a6"/>
-              <text x="488" y="23" fill="#14b8a6" font-size="12" font-weight="bold">Chlorophyll a</text>
-              <rect x="575" y="12" width="12" height="12" fill="#84cc16"/>
-              <text x="593" y="23" fill="#84cc16" font-size="12" font-weight="bold">Chlorophyll b</text>
-              <rect x="675" y="12" width="12" height="12" fill="#f97316"/>
-              <text x="692" y="23" fill="#f97316" font-size="12" font-weight="bold">&beta;-carotene</text>
+              <!-- Legend (Spaced out so nothing clips) -->
+              <rect x="420" y="12" width="12" height="12" rx="2" fill="#14b8a6"/>
+              <text x="437" y="23" fill="#14b8a6" font-size="12" font-weight="bold">Chlorophyll a</text>
+              <rect x="530" y="12" width="12" height="12" rx="2" fill="#84cc16"/>
+              <text x="547" y="23" fill="#84cc16" font-size="12" font-weight="bold">Chlorophyll b</text>
+              <rect x="640" y="12" width="12" height="12" rx="2" fill="#f97316"/>
+              <text x="657" y="23" fill="#f97316" font-size="12" font-weight="bold">&beta;-carotene</text>
 
               <!-- Engelmann Experiment Section (Bottom) -->
-              <text x="65" y="240" fill="#cbd5e1" font-size="13" font-weight="bold">Theodor Engelmann's 1882 Experiment: Oxygen-Seeking Bacteria</text>
+              <text x="65" y="242" fill="#cbd5e1" font-size="13" font-weight="bold">Theodor Engelmann's 1882 Experiment: Oxygen-Seeking Bacteria</text>
 
               <!-- Spectrum Background for Algae -->
-              <rect x="60" y="250" width="650" height="125" fill="url(#rainbowGrad)" opacity="0.35" rx="6"/>
+              <rect x="60" y="252" width="650" height="125" fill="url(#rainbowGrad)" opacity="0.35" rx="6"/>
 
               <!-- Cladophora Algal Strand -->
               <g>
-                <rect x="60" y="298" width="650" height="28" fill="#14532d" stroke="#86efac" stroke-width="2"/>
-                <rect x="65" y="302" width="100" height="20" rx="4" fill="#22c55e"/>
-                <rect x="172" y="302" width="100" height="20" rx="4" fill="#22c55e"/>
-                <rect x="279" y="302" width="100" height="20" rx="4" fill="#22c55e"/>
-                <rect x="386" y="302" width="100" height="20" rx="4" fill="#22c55e"/>
-                <rect x="493" y="302" width="100" height="20" rx="4" fill="#22c55e"/>
-                <rect x="600" y="302" width="105" height="20" rx="4" fill="#22c55e"/>
-                <text x="385" y="316" fill="#052e16" font-size="12" font-weight="bold" text-anchor="middle">Cladophora Green Alga Strand</text>
+                <rect x="60" y="300" width="650" height="28" fill="#14532d" stroke="#86efac" stroke-width="2"/>
+                <rect x="65" y="304" width="100" height="20" rx="4" fill="#22c55e"/>
+                <rect x="172" y="304" width="100" height="20" rx="4" fill="#22c55e"/>
+                <rect x="279" y="304" width="100" height="20" rx="4" fill="#22c55e"/>
+                <rect x="386" y="304" width="100" height="20" rx="4" fill="#22c55e"/>
+                <rect x="493" y="304" width="100" height="20" rx="4" fill="#22c55e"/>
+                <rect x="600" y="304" width="105" height="20" rx="4" fill="#22c55e"/>
+                <text x="385" y="318" fill="#052e16" font-size="12" font-weight="bold" text-anchor="middle">Cladophora Green Alga Strand</text>
               </g>
 
               <!-- Bacteria Swarm around Blue/Violet (420-480nm) and Red (630-680nm) -->
               <g fill="#f8fafc" opacity="0.85">
-                <!-- Blue/Violet Cluster -->
                 <ellipse cx="130" cy="280" rx="6" ry="2.5" transform="rotate(20 130 280)"/>
                 <ellipse cx="145" cy="270" rx="6" ry="2.5" transform="rotate(-15 145 270)"/>
                 <ellipse cx="160" cy="285" rx="6" ry="2.5" transform="rotate(40 160 285)"/>
@@ -642,39 +648,37 @@
                 <ellipse cx="155" cy="260" rx="6" ry="2.5"/>
                 <ellipse cx="120" cy="290" rx="6" ry="2.5"/>
                 <ellipse cx="205" cy="275" rx="6" ry="2.5"/>
-                <ellipse cx="135" cy="340" rx="6" ry="2.5" transform="rotate(-20 135 340)"/>
-                <ellipse cx="155" cy="350" rx="6" ry="2.5" transform="rotate(15 155 350)"/>
-                <ellipse cx="170" cy="338" rx="6" ry="2.5" transform="rotate(-35 170 338)"/>
-                <ellipse cx="188" cy="348" rx="6" ry="2.5"/>
-                <ellipse cx="145" cy="362" rx="6" ry="2.5"/>
-                <ellipse cx="200" cy="336" rx="6" ry="2.5"/>
+                <ellipse cx="135" cy="342" rx="6" ry="2.5" transform="rotate(-20 135 342)"/>
+                <ellipse cx="155" cy="352" rx="6" ry="2.5" transform="rotate(15 155 352)"/>
+                <ellipse cx="170" cy="340" rx="6" ry="2.5" transform="rotate(-35 170 340)"/>
+                <ellipse cx="188" cy="350" rx="6" ry="2.5"/>
+                <ellipse cx="145" cy="364" rx="6" ry="2.5"/>
+                <ellipse cx="200" cy="338" rx="6" ry="2.5"/>
 
-                <!-- Sparse middle (Green/Yellow) -->
                 <ellipse cx="350" cy="290" rx="6" ry="2.5"/>
-                <ellipse cx="420" cy="338" rx="6" ry="2.5"/>
+                <ellipse cx="420" cy="340" rx="6" ry="2.5"/>
 
-                <!-- Red Cluster -->
                 <ellipse cx="585" cy="282" rx="6" ry="2.5" transform="rotate(25 585 282)"/>
                 <ellipse cx="605" cy="272" rx="6" ry="2.5" transform="rotate(-10 605 272)"/>
                 <ellipse cx="620" cy="286" rx="6" ry="2.5"/>
                 <ellipse cx="635" cy="275" rx="6" ry="2.5" transform="rotate(30 635 275)"/>
                 <ellipse cx="650" cy="288" rx="6" ry="2.5"/>
-                <ellipse cx="595" cy="340" rx="6" ry="2.5" transform="rotate(-25 595 340)"/>
-                <ellipse cx="615" cy="352" rx="6" ry="2.5"/>
-                <ellipse cx="630" cy="338" rx="6" ry="2.5" transform="rotate(15 630 338)"/>
-                <ellipse cx="645" cy="348" rx="6" ry="2.5"/>
+                <ellipse cx="595" cy="342" rx="6" ry="2.5" transform="rotate(-25 595 342)"/>
+                <ellipse cx="615" cy="354" rx="6" ry="2.5"/>
+                <ellipse cx="630" cy="340" rx="6" ry="2.5" transform="rotate(15 630 340)"/>
+                <ellipse cx="645" cy="350" rx="6" ry="2.5"/>
               </g>
 
               <!-- Wavelength X-Axis Labels -->
-              <text x="60" y="395" fill="#cbd5e1" font-size="12" text-anchor="middle">400 nm (Violet)</text>
-              <text x="276" y="395" fill="#cbd5e1" font-size="12" text-anchor="middle">500 nm (Green)</text>
-              <text x="493" y="395" fill="#cbd5e1" font-size="12" text-anchor="middle">600 nm (Orange)</text>
-              <text x="710" y="395" fill="#cbd5e1" font-size="12" text-anchor="middle">700 nm (Red)</text>
+              <text x="65" y="398" fill="#cbd5e1" font-size="12" text-anchor="middle">400 nm (Violet)</text>
+              <text x="276" y="398" fill="#cbd5e1" font-size="12" text-anchor="middle">500 nm (Green)</text>
+              <text x="493" y="398" fill="#cbd5e1" font-size="12" text-anchor="middle">600 nm (Orange)</text>
+              <text x="700" y="398" fill="#cbd5e1" font-size="12" text-anchor="middle">700 nm (Red)</text>
 
               <!-- Interactive Wavelength Indicator Line -->
               <g id="wavelength-cursor" transform="translate(168, 0)">
-                <line x1="0" y1="35" x2="0" y2="375" stroke="#ffffff" stroke-width="3" stroke-dasharray="5,3"/>
-                <circle cx="0" cy="35" r="7" fill="#ffffff"/>
+                <line x1="0" y1="38" x2="0" y2="377" stroke="#ffffff" stroke-width="3" stroke-dasharray="5,3"/>
+                <circle cx="0" cy="38" r="7" fill="#ffffff"/>
               </g>
             </svg>
           </div>
@@ -751,115 +755,127 @@
 
           <!-- Thylakoid Membrane Interactive SVG -->
           <div class="svg-container">
-            <svg viewBox="0 0 760 430" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 780 450" xmlns="http://www.w3.org/2000/svg">
               <!-- Stroma (Top) -->
-              <rect x="0" y="0" width="760" height="145" fill="#0f172a"/>
-              <text x="20" y="28" fill="#86efac" font-size="15" font-weight="bold">STROMA (Low H⁺ concentration)</text>
+              <rect x="0" y="0" width="780" height="160" fill="#0f172a"/>
+              <text x="18" y="26" fill="#86efac" font-size="14" font-weight="bold">STROMA (Low H⁺ concentration)</text>
 
               <!-- Thylakoid Membrane Bilayer (Middle) -->
-              <rect x="0" y="145" width="760" height="110" fill="#78350f" stroke="#f59e0b" stroke-width="3"/>
-              <line x1="0" y1="200" x2="760" y2="200" stroke="#451a03" stroke-width="2" stroke-dasharray="8,6"/>
-              <text x="655" y="165" fill="#fde68a" font-size="11" font-weight="bold">Thylakoid Membrane</text>
+              <rect x="0" y="160" width="780" height="110" fill="#78350f" stroke="#f59e0b" stroke-width="3"/>
+              <line x1="0" y1="215" x2="780" y2="215" stroke="#451a03" stroke-width="2" stroke-dasharray="8,6"/>
+              <!-- Placed on bottom-left of membrane so it never collides with ATP Synthase or gets cut off -->
+              <rect x="12" y="242" width="132" height="20" rx="4" fill="#451a03" fill-opacity="0.85"/>
+              <text x="78" y="256" fill="#fde68a" font-size="11" font-weight="bold" text-anchor="middle">Thylakoid Membrane</text>
 
               <!-- Thylakoid Compartment / Lumen (Bottom) -->
-              <rect x="0" y="255" width="760" height="175" fill="#064e3b"/>
-              <text x="20" y="412" fill="#6ee7b7" font-size="15" font-weight="bold">THYLAKOID COMPARTMENT (High H⁺ concentration gradient)</text>
+              <rect x="0" y="270" width="780" height="180" fill="#064e3b"/>
+              <text x="18" y="432" fill="#6ee7b7" font-size="14" font-weight="bold">THYLAKOID COMPARTMENT (High H⁺ concentration gradient)</text>
 
               <!-- PHOTOSYSTEM II (p680) -->
               <g id="svg-ps2" opacity="1">
-                <rect x="75" y="125" width="95" height="145" rx="22" fill="#15803d" stroke="#4ade80" stroke-width="3"/>
-                <circle cx="122" cy="195" r="22" fill="#166534" stroke="#86efac" stroke-width="2"/>
-                <text x="122" y="152" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="middle">Photosystem II</text>
-                <text x="122" y="200" fill="#fef08a" font-size="13" font-weight="bold" text-anchor="middle">p680</text>
-                <!-- Light Bolt PSII -->
+                <rect x="80" y="140" width="95" height="145" rx="22" fill="#15803d" stroke="#4ade80" stroke-width="3"/>
+                <circle cx="127" cy="212" r="22" fill="#166534" stroke="#86efac" stroke-width="2"/>
+                <text x="127" y="166" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="middle">Photosystem II</text>
+                <text x="127" y="217" fill="#fef08a" font-size="13" font-weight="bold" text-anchor="middle">p680</text>
+                <!-- Light Bolt PSII positioned well below STROMA title -->
                 <g id="ldr-light-ps2" opacity="0.25">
-                  <path d="M 95 30 L 115 80 L 102 80 L 122 122" fill="none" stroke="#fde047" stroke-width="4" marker-end="url(#arrowYellow)"/>
-                  <text x="105" y="24" fill="#fde047" font-size="12" font-weight="bold" text-anchor="middle">1. Light</text>
+                  <rect x="72" y="38" width="66" height="22" rx="6" fill="#422006" stroke="#fde047" stroke-width="1.5"/>
+                  <text x="105" y="53" fill="#fde047" font-size="12" font-weight="bold" text-anchor="middle">1. Light</text>
+                  <path d="M 105 64 L 122 98 L 108 98 L 125 135" fill="none" stroke="#fde047" stroke-width="4" marker-end="url(#arrowYellow)"/>
                 </g>
               </g>
 
               <!-- WATER SPLITTING (Photolysis) -->
               <g id="ldr-photolysis" opacity="0.25">
-                <path d="M 90 340 Q 122 300, 122 270" fill="none" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrowBlue)"/>
-                <path d="M 122 305 Q 145 340, 175 355" fill="none" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrowBlue)"/>
-                <text x="75" y="362" fill="#38bdf8" font-size="14" font-weight="bold">2. H₂O</text>
-                <text x="195" y="368" fill="#7dd3fc" font-size="13" font-weight="bold">½ O₂ + 2 H⁺</text>
+                <path d="M 95 350 Q 127 315, 127 288" fill="none" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrowBlue)"/>
+                <path d="M 127 320 Q 150 355, 180 368" fill="none" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrowBlue)"/>
+                <text x="80" y="374" fill="#38bdf8" font-size="14" font-weight="bold" text-anchor="middle">2. H₂O</text>
+                <text x="225" y="378" fill="#7dd3fc" font-size="13" font-weight="bold" text-anchor="middle">½ O₂ + 2 H⁺</text>
               </g>
 
-              <!-- ETC 1 & H+ Pump -->
+              <!-- ETC 1 -->
               <g id="ldr-etc1" opacity="0.3">
-                <rect x="200" y="155" width="45" height="85" rx="10" fill="#1d4ed8" stroke="#60a5fa" stroke-width="2"/>
-                <rect x="255" y="155" width="50" height="90" rx="10" fill="#2563eb" stroke="#93c5fd" stroke-width="2"/>
-                <rect x="315" y="155" width="45" height="85" rx="10" fill="#1d4ed8" stroke="#60a5fa" stroke-width="2"/>
-                <text x="280" y="140" fill="#93c5fd" font-size="12" font-weight="bold" text-anchor="middle">3. Electron Transfer Chain</text>
+                <rect x="200" y="170" width="44" height="85" rx="10" fill="#1d4ed8" stroke="#60a5fa" stroke-width="2"/>
+                <rect x="254" y="170" width="50" height="90" rx="10" fill="#2563eb" stroke="#93c5fd" stroke-width="2"/>
+                <rect x="314" y="170" width="44" height="85" rx="10" fill="#1d4ed8" stroke="#60a5fa" stroke-width="2"/>
                 <!-- Electron Path PSII to PSI -->
-                <path d="M 145 195 L 222 195 L 280 205 L 338 195 L 395 195" fill="none" stroke="#facc15" stroke-width="4" stroke-dasharray="5,3" marker-end="url(#arrowYellow)"/>
+                <path d="M 150 212 L 222 212 L 279 222 L 336 212 L 390 212" fill="none" stroke="#facc15" stroke-width="4" stroke-dasharray="5,3" marker-end="url(#arrowYellow)"/>
+                <!-- Clean pill label above ETC 1 so the vertical H+ arrow doesn't strike through text -->
+                <rect x="192" y="138" width="174" height="22" rx="6" fill="#0f172a" stroke="#60a5fa" stroke-width="1.5"/>
+                <text x="279" y="153" fill="#93c5fd" font-size="11.5" font-weight="bold" text-anchor="middle">3. Electron Transfer Chain</text>
               </g>
 
               <!-- H+ Active Transport across ETC 1 -->
               <g id="ldr-hpump" opacity="0.25">
-                <path d="M 280 95 L 280 300" fill="none" stroke="#38bdf8" stroke-width="5" marker-end="url(#arrowBlue)"/>
-                <circle cx="280" cy="80" r="14" fill="#0284c7"/>
-                <text x="280" y="85" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="middle">H⁺</text>
-                <text x="280" y="55" fill="#38bdf8" font-size="12" font-weight="bold" text-anchor="middle">4. H⁺ Pump</text>
+                <text x="279" y="52" fill="#38bdf8" font-size="12" font-weight="bold" text-anchor="middle">4. H⁺ Pump</text>
+                <circle cx="279" cy="76" r="14" fill="#0284c7" stroke="#bae6fd" stroke-width="1.5"/>
+                <text x="279" y="81" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="middle">H⁺</text>
+                <!-- Arrow starts below the 3. ETC label pill so it never crosses the words -->
+                <path d="M 279 92 L 279 134" fill="none" stroke="#38bdf8" stroke-width="4"/>
+                <path d="M 279 162 L 279 312" fill="none" stroke="#38bdf8" stroke-width="5" marker-end="url(#arrowBlue)"/>
               </g>
 
               <!-- PHOTOSYSTEM I (p700) -->
               <g id="svg-ps1">
-                <rect x="395" y="125" width="95" height="145" rx="22" fill="#15803d" stroke="#4ade80" stroke-width="3"/>
-                <circle cx="442" cy="195" r="22" fill="#166534" stroke="#86efac" stroke-width="2"/>
-                <text x="442" y="152" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="middle">Photosystem I</text>
-                <text x="442" y="200" fill="#fef08a" font-size="13" font-weight="bold" text-anchor="middle">p700</text>
+                <rect x="390" y="140" width="95" height="145" rx="22" fill="#15803d" stroke="#4ade80" stroke-width="3"/>
+                <circle cx="437" cy="212" r="22" fill="#166534" stroke="#86efac" stroke-width="2"/>
+                <text x="437" y="166" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="middle">Photosystem I</text>
+                <text x="437" y="217" fill="#fef08a" font-size="13" font-weight="bold" text-anchor="middle">p700</text>
                 <!-- Light Bolt PSI -->
                 <g id="ldr-light-ps1" opacity="0.25">
-                  <path d="M 415 30 L 435 80 L 422 80 L 442 122" fill="none" stroke="#fde047" stroke-width="4" marker-end="url(#arrowYellow)"/>
-                  <text x="425" y="24" fill="#fde047" font-size="12" font-weight="bold" text-anchor="middle">5. Light</text>
+                  <rect x="382" y="38" width="66" height="22" rx="6" fill="#422006" stroke="#fde047" stroke-width="1.5"/>
+                  <text x="415" y="53" fill="#fde047" font-size="12" font-weight="bold" text-anchor="middle">5. Light</text>
+                  <path d="M 415 64 L 432 98 L 418 98 L 435 135" fill="none" stroke="#fde047" stroke-width="4" marker-end="url(#arrowYellow)"/>
                 </g>
               </g>
 
               <!-- CYCLIC RETURN LOOP (Hidden in Noncyclic mode) -->
               <g id="ldr-cyclic-loop" opacity="0">
-                <path d="M 442 170 C 400 105, 310 105, 280 165" fill="none" stroke="#facc15" stroke-width="4" stroke-dasharray="6,3" marker-end="url(#arrowYellow)"/>
-                <rect x="315" y="102" width="105" height="24" rx="6" fill="#ca8a04"/>
-                <text x="367" y="118" fill="#ffffff" font-size="11" font-weight="bold" text-anchor="middle">e⁻ Cycles Back!</text>
+                <path d="M 437 140 C 410 92, 330 92, 295 165" fill="none" stroke="#facc15" stroke-width="4" stroke-dasharray="6,3" marker-end="url(#arrowYellow)"/>
+                <rect x="315" y="92" width="108" height="24" rx="6" fill="#ca8a04" stroke="#fef08a" stroke-width="1.5"/>
+                <text x="369" y="108" fill="#ffffff" font-size="11" font-weight="bold" text-anchor="middle">e⁻ Cycles Back!</text>
               </g>
 
               <!-- ETC 2 & NADPH Formation -->
               <g id="ldr-etc2" opacity="0.25">
-                <rect x="515" y="155" width="65" height="85" rx="12" fill="#7e22ce" stroke="#d8b4fe" stroke-width="2"/>
-                <text x="547" y="200" fill="#ffffff" font-size="11" font-weight="bold" text-anchor="middle">ETC II</text>
-                <path d="M 465 195 L 547 195 L 565 105" fill="none" stroke="#facc15" stroke-width="4" marker-end="url(#arrowYellow)"/>
-                <rect x="515" y="65" width="110" height="34" rx="8" fill="#ca8a04" stroke="#fef08a" stroke-width="2"/>
-                <text x="570" y="87" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">6. NADPH</text>
-                <text x="570" y="55" fill="#fde047" font-size="11" text-anchor="middle">NADP⁺ + H⁺ + 2e⁻</text>
+                <rect x="510" y="170" width="68" height="85" rx="12" fill="#7e22ce" stroke="#d8b4fe" stroke-width="2"/>
+                <!-- ETC II text placed near bottom of purple box so yellow electron line doesn't strike through it -->
+                <text x="544" y="242" fill="#f3e8ff" font-size="11.5" font-weight="bold" text-anchor="middle">ETC II</text>
+                <path d="M 460 212 L 544 212 L 560 112" fill="none" stroke="#facc15" stroke-width="4" marker-end="url(#arrowYellow)"/>
+                <text x="560" y="60" fill="#fde047" font-size="11.5" font-weight="bold" text-anchor="middle">NADP⁺ + H⁺ + 2e⁻</text>
+                <rect x="505" y="68" width="110" height="34" rx="8" fill="#ca8a04" stroke="#fef08a" stroke-width="2"/>
+                <text x="560" y="90" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">6. NADPH</text>
               </g>
 
               <!-- H+ Pool in Thylakoid Compartment -->
               <g id="ldr-hpool" opacity="0.4">
-                <circle cx="240" cy="330" r="12" fill="#0284c7"/><text x="240" y="335" fill="#fff" font-size="11" font-weight="bold" text-anchor="middle">H⁺</text>
-                <circle cx="290" cy="345" r="12" fill="#0284c7"/><text x="290" y="350" fill="#fff" font-size="11" font-weight="bold" text-anchor="middle">H⁺</text>
-                <circle cx="345" cy="330" r="12" fill="#0284c7"/><text x="345" y="335" fill="#fff" font-size="11" font-weight="bold" text-anchor="middle">H⁺</text>
-                <circle cx="410" cy="345" r="12" fill="#0284c7"/><text x="410" y="350" fill="#fff" font-size="11" font-weight="bold" text-anchor="middle">H⁺</text>
-                <circle cx="485" cy="335" r="12" fill="#0284c7"/><text x="485" y="340" fill="#fff" font-size="11" font-weight="bold" text-anchor="middle">H⁺</text>
-                <circle cx="560" cy="345" r="12" fill="#0284c7"/><text x="560" y="350" fill="#fff" font-size="11" font-weight="bold" text-anchor="middle">H⁺</text>
+                <circle cx="290" cy="350" r="12" fill="#0284c7"/><text x="290" y="355" fill="#fff" font-size="11" font-weight="bold" text-anchor="middle">H⁺</text>
+                <circle cx="345" cy="365" r="12" fill="#0284c7"/><text x="345" y="370" fill="#fff" font-size="11" font-weight="bold" text-anchor="middle">H⁺</text>
+                <circle cx="405" cy="348" r="12" fill="#0284c7"/><text x="405" y="353" fill="#fff" font-size="11" font-weight="bold" text-anchor="middle">H⁺</text>
+                <circle cx="465" cy="365" r="12" fill="#0284c7"/><text x="465" y="370" fill="#fff" font-size="11" font-weight="bold" text-anchor="middle">H⁺</text>
+                <circle cx="530" cy="350" r="12" fill="#0284c7"/><text x="530" y="355" fill="#fff" font-size="11" font-weight="bold" text-anchor="middle">H⁺</text>
+                <circle cx="590" cy="362" r="12" fill="#0284c7"/><text x="590" y="367" fill="#fff" font-size="11" font-weight="bold" text-anchor="middle">H⁺</text>
                 <!-- Gradient flow arrow to ATP Synthase -->
-                <path d="M 580 345 Q 665 345, 665 275" fill="none" stroke="#38bdf8" stroke-width="4" stroke-dasharray="5,3" marker-end="url(#arrowBlue)"/>
+                <path d="M 608 362 Q 675 362, 675 292" fill="none" stroke="#38bdf8" stroke-width="4" stroke-dasharray="5,3" marker-end="url(#arrowBlue)"/>
               </g>
 
               <!-- ATP SYNTHASE & Electron Transfer Phosphorylation -->
               <g id="ldr-atpsynthase" opacity="0.35">
                 <!-- Stalk in membrane -->
-                <rect x="645" y="135" width="40" height="135" rx="8" fill="#cbd5e1" stroke="#64748b" stroke-width="2"/>
-                <!-- Rotor head in stroma -->
-                <ellipse cx="665" cy="115" rx="38" ry="26" fill="#e2e8f0" stroke="#475569" stroke-width="3"/>
-                <text x="665" y="120" fill="#0f172a" font-size="12" font-weight="bold" text-anchor="middle">ATP Synthase</text>
-                <!-- H+ shooting up into stroma -->
-                <path d="M 665 275 L 665 45" fill="none" stroke="#38bdf8" stroke-width="5" marker-end="url(#arrowBlue)"/>
-                <circle cx="665" cy="30" r="13" fill="#0284c7"/><text x="665" y="35" fill="#fff" font-size="11" font-weight="bold" text-anchor="middle">H⁺</text>
+                <rect x="655" y="150" width="40" height="135" rx="8" fill="#cbd5e1" stroke="#64748b" stroke-width="2"/>
+                <!-- H+ channel line drawn BEFORE rotor head so it doesn't cross over the "ATP Synthase" text -->
+                <path d="M 675 285 L 675 152" fill="none" stroke="#0284c7" stroke-width="4" stroke-dasharray="4,3"/>
+                <path d="M 675 102 L 675 52" fill="none" stroke="#38bdf8" stroke-width="5" marker-end="url(#arrowBlue)"/>
+                <circle cx="675" cy="32" r="13" fill="#0284c7" stroke="#bae6fd" stroke-width="1.5"/>
+                <text x="675" y="37" fill="#fff" font-size="11" font-weight="bold" text-anchor="middle">H⁺</text>
+
+                <!-- Rotor head in stroma with wider pill so text fits cleanly inside -->
+                <rect x="625" y="102" width="100" height="44" rx="22" fill="#e2e8f0" stroke="#475569" stroke-width="3"/>
+                <text x="675" y="128" fill="#0f172a" font-size="12" font-weight="bold" text-anchor="middle">ATP Synthase</text>
 
                 <!-- ATP Output Badge -->
-                <rect x="680" y="55" width="70" height="32" rx="16" fill="#eab308" stroke="#fef08a" stroke-width="2"/>
-                <text x="715" y="76" fill="#0f172a" font-size="14" font-weight="bold" text-anchor="middle">ATP</text>
+                <rect x="700" y="55" width="68" height="32" rx="16" fill="#eab308" stroke="#fef08a" stroke-width="2"/>
+                <text x="734" y="76" fill="#0f172a" font-size="14" font-weight="bold" text-anchor="middle">ATP</text>
               </g>
             </svg>
           </div>
@@ -920,33 +936,33 @@
 
           <!-- Calvin-Benson Cycle Interactive SVG -->
           <div class="svg-container">
-            <svg viewBox="0 0 750 430" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 760 440" xmlns="http://www.w3.org/2000/svg">
               <!-- Stroma Background Circle -->
-              <circle cx="375" cy="210" r="135" fill="#1e293b" stroke="#334155" stroke-width="18"/>
-              <text x="375" y="205" fill="#38bdf8" font-size="18" font-weight="bold" text-anchor="middle">Calvin–Benson</text>
-              <text x="375" y="228" fill="#38bdf8" font-size="18" font-weight="bold" text-anchor="middle">Cycle (Stroma)</text>
+              <circle cx="380" cy="215" r="130" fill="#1e293b" stroke="#334155" stroke-width="16"/>
+              <text x="380" y="210" fill="#38bdf8" font-size="18" font-weight="bold" text-anchor="middle">Calvin–Benson</text>
+              <text x="380" y="233" fill="#38bdf8" font-size="18" font-weight="bold" text-anchor="middle">Cycle (Stroma)</text>
 
               <!-- STEP 1: 3 CO2 + 3 RuBP via Rubisco -->
               <g id="calvin-node-1" opacity="1">
-                <path d="M 375 12 L 375 68" fill="none" stroke="#38bdf8" stroke-width="5" marker-end="url(#arrowBlue)"/>
-                <rect x="315" y="8" width="120" height="28" rx="6" fill="#0284c7"/>
-                <text x="375" y="27" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">1. 3 CO₂ (1C each)</text>
-                <text x="375" y="92" fill="#fef08a" font-size="12" font-weight="bold" text-anchor="middle">Enzyme: Rubisco</text>
+                <rect x="315" y="10" width="130" height="28" rx="6" fill="#0284c7" stroke="#bae6fd" stroke-width="1.5"/>
+                <text x="380" y="29" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">1. 3 CO₂ (1C each)</text>
+                <path d="M 380 38 L 380 72" fill="none" stroke="#38bdf8" stroke-width="4" marker-end="url(#arrowBlue)"/>
+                <rect x="322" y="96" width="116" height="22" rx="6" fill="#422006" stroke="#fde047" stroke-width="1"/>
+                <text x="380" y="111" fill="#fef08a" font-size="11.5" font-weight="bold" text-anchor="middle">Enzyme: Rubisco</text>
               </g>
 
               <!-- 3 RuBP Node (Top Right) -->
               <g id="calvin-node-rubp" opacity="0.5">
-                <rect x="445" y="65" width="155" height="52" rx="10" fill="#0f172a" stroke="#60a5fa" stroke-width="2"/>
-                <text x="522" y="86" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">3 RuBP (5-Carbon)</text>
-                <!-- 5 Carbon black/gray balls -->
-                <g transform="translate(482, 95)" fill="#94a3b8">
+                <rect x="455" y="65" width="155" height="52" rx="10" fill="#0f172a" stroke="#60a5fa" stroke-width="2"/>
+                <text x="532" y="86" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">3 RuBP (5-Carbon)</text>
+                <g transform="translate(492, 95)" fill="#94a3b8">
                   <circle cx="0" cy="6" r="6"/><circle cx="16" cy="6" r="6"/><circle cx="32" cy="6" r="6"/><circle cx="48" cy="6" r="6"/><circle cx="64" cy="6" r="6"/>
                 </g>
               </g>
 
               <!-- STEP 2: 6 PGA Node (Top Left) -->
               <g id="calvin-node-2" opacity="0.35">
-                <path d="M 440 82 Q 375 55, 305 82" fill="none" stroke="#38bdf8" stroke-width="5" marker-end="url(#arrowBlue)"/>
+                <path d="M 450 82 Q 380 62, 310 82" fill="none" stroke="#38bdf8" stroke-width="5" marker-end="url(#arrowBlue)"/>
                 <rect x="145" y="65" width="155" height="52" rx="10" fill="#0f172a" stroke="#f87171" stroke-width="2"/>
                 <text x="222" y="86" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">2. 6 PGA (3-Carbon)</text>
                 <g transform="translate(198, 95)" fill="#f87171">
@@ -956,41 +972,42 @@
 
               <!-- STEP 3: ATP + NADPH Input -> 6 PGAL (Bottom Left) -->
               <g id="calvin-node-3" opacity="0.35">
-                <path d="M 225 122 C 205 185, 205 235, 245 290" fill="none" stroke="#facc15" stroke-width="5" marker-end="url(#arrowYellow)"/>
+                <path d="M 225 122 C 205 185, 205 240, 245 292" fill="none" stroke="#facc15" stroke-width="5" marker-end="url(#arrowYellow)"/>
                 <!-- 6 ATP Box -->
-                <rect x="55" y="140" width="130" height="32" rx="8" fill="#eab308"/>
-                <text x="120" y="161" fill="#0f172a" font-size="12" font-weight="bold" text-anchor="middle">6 ATP &rarr; 6 ADP + 6 Pᵢ</text>
+                <rect x="45" y="148" width="142" height="32" rx="8" fill="#eab308"/>
+                <text x="116" y="169" fill="#0f172a" font-size="12" font-weight="bold" text-anchor="middle">6 ATP &rarr; 6 ADP + 6 Pᵢ</text>
                 <!-- 6 NADPH Box -->
-                <rect x="55" y="210" width="130" height="32" rx="8" fill="#ca8a04"/>
-                <text x="120" y="231" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="middle">6 NADPH &rarr; 6 NADP⁺</text>
+                <rect x="45" y="215" width="142" height="32" rx="8" fill="#ca8a04"/>
+                <text x="116" y="236" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="middle">6 NADPH &rarr; 6 NADP⁺</text>
 
                 <!-- 6 PGAL Box -->
-                <rect x="175" y="295" width="155" height="52" rx="10" fill="#0f172a" stroke="#4ade80" stroke-width="3"/>
-                <text x="252" y="316" fill="#4ade80" font-size="13" font-weight="bold" text-anchor="middle">3. 6 PGAL (3-Carbon)</text>
-                <g transform="translate(232, 326)" fill="#4ade80">
+                <rect x="175" y="300" width="155" height="52" rx="10" fill="#0f172a" stroke="#4ade80" stroke-width="3"/>
+                <text x="252" y="321" fill="#4ade80" font-size="13" font-weight="bold" text-anchor="middle">3. 6 PGAL (3-Carbon)</text>
+                <g transform="translate(232, 331)" fill="#4ade80">
                   <circle cx="0" cy="6" r="6"/><circle cx="18" cy="6" r="6"/><circle cx="36" cy="6" r="6"/>
                 </g>
               </g>
 
               <!-- STEP 4 & 5: 1 PGAL Exported + Sucrose (Bottom) -->
               <g id="calvin-node-5" opacity="0.35">
-                <path d="M 332 325 L 375 375" fill="none" stroke="#4ade80" stroke-width="5" marker-end="url(#arrowYellow)"/>
-                <rect x="295" y="380" width="165" height="42" rx="8" fill="#15803d" stroke="#86efac" stroke-width="2"/>
-                <text x="377" y="398" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="middle">5 &amp; 6. 1 PGAL Exported</text>
-                <text x="377" y="414" fill="#bbf7d0" font-size="11" text-anchor="middle">&rarr; Combines to form Sucrose</text>
+                <path d="M 332 330 L 380 378" fill="none" stroke="#4ade80" stroke-width="5" marker-end="url(#arrowYellow)"/>
+                <rect x="290" y="384" width="180" height="44" rx="8" fill="#15803d" stroke="#86efac" stroke-width="2"/>
+                <text x="380" y="402" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="middle">5 &amp; 6. 1 PGAL Exported</text>
+                <text x="380" y="418" fill="#bbf7d0" font-size="11" text-anchor="middle">&rarr; Combines to form Sucrose</text>
               </g>
 
               <!-- STEP 4: 5 PGAL Regenerate 3 RuBP using 3 ATP (Right) -->
               <g id="calvin-node-4" opacity="0.35">
-                <rect x="430" y="295" width="155" height="52" rx="10" fill="#0f172a" stroke="#38bdf8" stroke-width="2"/>
-                <text x="507" y="316" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">4. 5 PGAL Continue</text>
-                <g transform="translate(487, 326)" fill="#38bdf8">
+                <path d="M 332 325 L 428 325" fill="none" stroke="#38bdf8" stroke-width="4" marker-end="url(#arrowBlue)"/>
+                <rect x="435" y="300" width="155" height="52" rx="10" fill="#0f172a" stroke="#38bdf8" stroke-width="2"/>
+                <text x="512" y="321" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">4. 5 PGAL Continue</text>
+                <g transform="translate(492, 331)" fill="#38bdf8">
                   <circle cx="0" cy="6" r="6"/><circle cx="18" cy="6" r="6"/><circle cx="36" cy="6" r="6"/>
                 </g>
 
-                <path d="M 525 290 C 555 235, 555 185, 525 122" fill="none" stroke="#38bdf8" stroke-width="5" marker-end="url(#arrowBlue)"/>
-                <rect x="565" y="185" width="130" height="32" rx="8" fill="#eab308"/>
-                <text x="630" y="206" fill="#0f172a" font-size="12" font-weight="bold" text-anchor="middle">3 ATP &rarr; 3 ADP + 2 Pᵢ</text>
+                <path d="M 530 295 C 560 240, 560 185, 530 124" fill="none" stroke="#38bdf8" stroke-width="5" marker-end="url(#arrowBlue)"/>
+                <rect x="572" y="190" width="142" height="32" rx="8" fill="#eab308"/>
+                <text x="643" y="211" fill="#0f172a" font-size="12" font-weight="bold" text-anchor="middle">3 ATP &rarr; 3 ADP + 2 Pᵢ</text>
               </g>
             </svg>
           </div>
